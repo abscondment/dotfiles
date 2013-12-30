@@ -1,0 +1,4 @@
+*~
+*.elc
+.emacs.d/elpa
+.emacs.d/.org-id-locations
