@@ -1,22 +1,39 @@
 #!/bin/sh
 
-# Check repo out
-if [ ! -r $HOME/.dotfiles ]; then
+DFDIR="$HOME/.dotfiles"
+
+# Clone ourselves
+if [ ! -r $DFDIR ]; then
   echo "Checking out dotfiles..."
   git clone git://github.com/abscondment/dotfiles.git \
-    $HOME/.dotfiles
+    $DFDIR
 fi
 
-cd $HOME/.dotfiles
+# Decrypt any secrets
+if [ ! -r "$DFDIR/secrets" ]; then
+    echo "WHOA! You need some secrets to proceed."
+    echo
+    echo "TODO: automate decrypting secrets"
+    exit 1
+fi
 
-for f in $(ls -a "$HOME/.dotfiles") ; do
-    if ([ ! -r "$HOME/$f" ] || [ "$(readlink -n "$HOME/$f")" != "$HOME/.dotfiles/$f" ]) &&
-        [ $f != "." ] && [ $f != ".." ] && [ $f != "README.md" ] &&
-        [ "$f" != ".git" ] && [ $f != ".gitignore" ] ; then
-	echo "LINKING $f"
-	if [ -r "$HOME/$f" ]; then
-	    rm -r "$HOME/$f"
-	fi
-        ln -s "$HOME/.dotfiles/$f" "$HOME/$f"
-    fi
-done
+function copy_from_dir() {
+    for f in $(ls -a "$1"); do
+        if ([ ! -r "$HOME/$f" ] || [ "$(readlink -n "$HOME/$f")" != "$1/$f" ]) &&
+            [ $f != "." ] && [ $f != ".." ] &&
+            [ $f != "README.md" ] &&
+            [ $f != "secrets" ] &&
+            [ $f != ".git" ] &&
+            [ $f != ".gitignore" ] ; then
+	        echo "LINKING $f"
+	        if ([ -e "$HOME/$f" ] ||
+                [ -L "$HOME/$f" ]); then
+	            rm -r "$HOME/$f"
+	        fi
+            ln -s "$1/$f" "$HOME/$f"
+        fi
+    done
+}
+
+copy_from_dir "$DFDIR"
+copy_from_dir "$DFDIR/secrets"
