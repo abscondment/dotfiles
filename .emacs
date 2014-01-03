@@ -1,7 +1,7 @@
 (defun path-with-home (path)
   (format "%s/%s" (getenv "HOME") path))
 
-(defvar AMDELISP (format "%s/elisp" (getenv "HOME")))
+(defvar AMDELISP (format "%s/.emacs.d/amdelisp" (getenv "HOME")))
 (load (format "%s/start" AMDELISP))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
