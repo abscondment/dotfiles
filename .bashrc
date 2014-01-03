@@ -130,14 +130,14 @@ dir_w_c=ac
 
 export LSCOLORS="$dir_c$sym_c$socket_c$pipe_c$x_c$bspec_c$cspec_c$x_setuid_c$x_setgid_c$dir_w_sticky_c$dir_w_c"
 
-# For amazon-ec2 and amazon s3 ruby gems
-# For chef/ec2 bootstrapping
-#export READABL_SSH_KEY_PATH="$HOME/.ec2/id_rsa-us-east-1-test"
-#export CHEF_CLIENT_KEY_PATH="$HOME/.chef/readabl.pem"
-#export CHEF_VALIDATION_KEY_PATH="$HOME/.chef/validation.pem"
+# GIT SECRETS
+source "$HOME/.secrets/git.bashrc"
 
-export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/readabl/pk-*.pem)"
-export EC2_CERT="$(/bin/ls $HOME/.ec2/readabl/cert-*.pem)"
+# AWS SECRETS
+source "$HOME/.secrets/ec2/aws.bashrc"
+
+export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.secrets/ec2/readabl/pk-*.pem)"
+export EC2_CERT="$(/bin/ls $HOME/.secrets/ec2/readabl/cert-*.pem)"
 export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.4.2.2/jars"
 export EC2_REGION="us-west-1"
 
