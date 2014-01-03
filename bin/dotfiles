@@ -2,6 +2,26 @@
 
 DFDIR="$HOME/.dotfiles"
 
+# copy function
+function copy_from_dir() {
+    for f in $(ls -a "$1"); do
+        if ([ ! -r "$HOME/$f" ] || [ "$(readlink -n "$HOME/$f")" != "$1/$f" ]) &&
+            [ $f != "." ] && [ $f != ".." ] &&
+            [ $f != "README.md" ] &&
+            [ $f != "secrets" ] &&
+            [ $f != ".git" ] &&
+            [ $f != ".gitignore" ] ; then
+	        echo "LINKING $f"
+	        if ([ -e "$HOME/$f" ] ||
+                [ -L "$HOME/$f" ]); then
+	            rm -r "$HOME/$f"
+	        fi
+            ln -s "$1/$f" "$HOME/$f"
+        fi
+    done
+}
+
+
 # Clone ourselves
 if [ ! -r $DFDIR ]; then
   echo "Checking out dotfiles..."
@@ -21,23 +41,6 @@ if [ ! -r "$DFDIR/secrets" ]; then
     fi
 fi
 
-function copy_from_dir() {
-    for f in $(ls -a "$1"); do
-        if ([ ! -r "$HOME/$f" ] || [ "$(readlink -n "$HOME/$f")" != "$1/$f" ]) &&
-            [ $f != "." ] && [ $f != ".." ] &&
-            [ $f != "README.md" ] &&
-            [ $f != "secrets" ] &&
-            [ $f != ".git" ] &&
-            [ $f != ".gitignore" ] ; then
-	        echo "LINKING $f"
-	        if ([ -e "$HOME/$f" ] ||
-                [ -L "$HOME/$f" ]); then
-	            rm -r "$HOME/$f"
-	        fi
-            ln -s "$1/$f" "$HOME/$f"
-        fi
-    done
-}
-
+# actually move things into place
 copy_from_dir "$DFDIR"
 copy_from_dir "$DFDIR/secrets"
