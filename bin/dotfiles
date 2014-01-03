@@ -11,10 +11,14 @@ fi
 
 # Decrypt any secrets
 if [ ! -r "$DFDIR/secrets" ]; then
-    echo "WHOA! You need some secrets to proceed."
-    echo
-    echo "TODO: automate decrypting secrets"
-    exit 1
+    echo "Decrypting secrets..."
+    if (gpg -da "$DFDIR/secrets.tar.asc" > "$DFDIR/secrets.tar" && tar xvf "$DFDIR/secrets.tar" -C $DFDIR); then
+        rm -f "$DFDIR/secrets.tar"
+    else
+        rm -f "$DFDIR/secrets.tar"
+        echo ; echo "Ruh roh. Error decrypting secrets!"
+        exit 1
+    fi
 fi
 
 function copy_from_dir() {

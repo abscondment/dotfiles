@@ -7,4 +7,4 @@ Simple initialization of user profile and various configuration files.
 To check in new secrets, replace the existing encrypted file:
 
     tar cvf secrets.tar secrets
-    gpg -ca secrets.tar
+    gpg -ca --force-mdc secrets.tar
