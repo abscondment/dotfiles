@@ -370,6 +370,10 @@ Pop up the buffer containing MARKER and scroll to MARKER if we ask the user."
 
 (add-hook 'java-mode-hook (lambda ()
                             (setq c-basic-offset 2)))
+
+(custom-set-variables
+ '(haskell-mode-hook '(turn-on-haskell-indentation)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
