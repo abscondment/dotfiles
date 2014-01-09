@@ -2,5 +2,6 @@
 *.elc
 /.emacs.d/elpa
 /.emacs.d/.org-id-locations
+/.lein/self-installs
 /secrets
 /secrets.tar
