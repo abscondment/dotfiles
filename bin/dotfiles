@@ -9,6 +9,7 @@ function copy_from_dir() {
             [ $f != "." ] && [ $f != ".." ] &&
             [ $f != "README.md" ] &&
             [ $f != "secrets" ] &&
+            [ $f != "secrets.tar.asc" ] &&
             [ $f != ".git" ] &&
             [ $f != ".gitignore" ] ; then
 	        echo "LINKING $f"
