@@ -8,6 +8,7 @@ function copy_from_dir() {
         if ([ ! -r "$HOME/$f" ] || [ "$(readlink -n "$HOME/$f")" != "$1/$f" ]) &&
             [ $f != "." ] && [ $f != ".." ] &&
             [ $f != "README.md" ] &&
+            [ $f != ".secrets" ] &&
             [ $f != "secrets" ] &&
             [ $f != "secrets.tar.asc" ] &&
             [ $f != ".git" ] &&
