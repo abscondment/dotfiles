@@ -130,6 +130,18 @@ dir_w_c=ac
 
 export LSCOLORS="$dir_c$sym_c$socket_c$pipe_c$x_c$bspec_c$cspec_c$x_setuid_c$x_setgid_c$dir_w_sticky_c$dir_w_c"
 
+# ssh-agent
+
+# start agent and set environment variables, if needed
+agent_started=0
+if ! env | grep -q SSH_AGENT_PID >/dev/null; then
+    echo "Starting ssh agent"
+    eval $(ssh-agent -s)
+    ssh-add ~/.secrets/ec2/readabl/id_rsa-readabl-us-west
+    ssh-add ~/.ssh/id_rsa
+    agent_started=1
+fi
+
 # GIT SECRETS
 source "$HOME/.secrets/git.bashrc"
 
@@ -138,7 +150,7 @@ source "$HOME/.secrets/ec2/aws.bashrc"
 
 export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.secrets/ec2/readabl/pk-*.pem)"
 export EC2_CERT="$(/bin/ls $HOME/.secrets/ec2/readabl/cert-*.pem)"
-export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.4.2.2/jars"
+export EC2_HOME="$(find /usr/local/Cellar/ec2-api-tools -type d -depth 1 | head -1)/libexec"
 export EC2_REGION="us-west-1"
 
 # ami
