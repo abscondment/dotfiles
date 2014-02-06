@@ -2,6 +2,7 @@
 *.elc
 /.emacs.d/elpa
 /.emacs.d/.org-id-locations
+/.emacs.d/url/cookies
 /.lein/self-installs
 /secrets
 /secrets.tar
