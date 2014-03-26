@@ -162,9 +162,8 @@ export AWS_RDS_HOME="/usr/local/Cellar/rds-command-line-tools/1.3.003/jars"
 export AWS_CLOUDWATCH_HOME="/usr/local/Library/LinkedKegs/cloud-watch/jars"
 export SERVICE_HOME="$AWS_CLOUDWATCH_HOME"
 
-#export ANDROID_HOME="/usr/local/Cellar/android-sdk/r18"
 export ANDROID_HOME="/usr/local/opt/android-sdk"
-export PATH=$ANDROID_HOME/bin:$ANDROID_HOME/platform-tools:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/Users/brendan/bin
+export PATH=$ANDROID_HOME/bin:$ANDROID_HOME/tools:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/Users/brendan/bin
 
 export JAVA6_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
 export JAVA7_HOME="$(/usr/libexec/java_home)"
