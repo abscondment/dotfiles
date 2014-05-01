@@ -150,7 +150,7 @@ source "$HOME/.secrets/ec2/aws.bashrc"
 
 export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.secrets/ec2/readabl/pk-*.pem)"
 export EC2_CERT="$(/bin/ls $HOME/.secrets/ec2/readabl/cert-*.pem)"
-export EC2_HOME="$(find /usr/local/Cellar/ec2-api-tools -type d -depth 1 | head -1)/libexec"
+export EC2_HOME="$(find /usr/local/Cellar/ec2-api-tools -type d -depth 1 | sort | tail -1)/libexec"
 export EC2_REGION="us-west-1"
 
 # ami
