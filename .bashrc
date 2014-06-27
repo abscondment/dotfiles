@@ -159,7 +159,7 @@ export EC2_AMITOOL_HOME="/usr/local/Cellar/ec2-ami-tools/1.3-45758/jars"
 # rds
 export AWS_RDS_HOME="/usr/local/Cellar/rds-command-line-tools/1.3.003/jars"
 # cloud-watch
-export AWS_CLOUDWATCH_HOME="/usr/local/Library/LinkedKegs/cloud-watch/jars"
+export AWS_CLOUDWATCH_HOME="/usr/local/Cellar/cloud-watch/1.0.20.0/libexec"
 export SERVICE_HOME="$AWS_CLOUDWATCH_HOME"
 
 #export ANDROID_HOME="/usr/local/Cellar/android-sdk/r18"
