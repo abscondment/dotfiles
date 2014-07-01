@@ -137,8 +137,7 @@ agent_started=0
 if ! env | grep -q SSH_AGENT_PID >/dev/null; then
     echo "Starting ssh agent"
     eval $(ssh-agent -s)
-    ssh-add ~/.secrets/ec2/readabl/id_rsa-readabl-us-west
-    ssh-add ~/.ssh/id_rsa
+    ssh-add ~/.ssh/id_madronalabs
     agent_started=1
 fi
 
