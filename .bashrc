@@ -146,6 +146,7 @@ source "$HOME/.secrets/git.bashrc"
 
 # AWS SECRETS
 source "$HOME/.secrets/ec2/aws.bashrc"
+source "$HOME/.secrets/ec2/heroku.bashrc"
 
 export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.secrets/ec2/readabl/pk-*.pem)"
 export EC2_CERT="$(/bin/ls $HOME/.secrets/ec2/readabl/cert-*.pem)"
