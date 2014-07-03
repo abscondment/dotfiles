@@ -45,3 +45,10 @@ fi
 # actually move things into place
 copy_from_dir "$DFDIR"
 copy_from_dir "$DFDIR/secrets"
+
+# special link for ssh config
+if ([ -e "$HOME/.ssh/config" ] ||
+        [ -L "$HOME/.ssh/config" ]); then
+	rm -f "$HOME/.ssh/config"
+fi
+cp "$DFDIR/secrets/.secrets/ssh-config" "$HOME/.ssh/config"
