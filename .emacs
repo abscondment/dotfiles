@@ -251,7 +251,7 @@ Pop up the buffer containing MARKER and scroll to MARKER if we ask the user."
  '(emacs-lisp lisp inferior-lisp slime slime-repl lisp-interaction clojure nrepl))
 
 ;; twittering-mode
-;; (add-to-list 'load-path (path-with-home "code/twittering-mode"))
+;;(add-to-list 'load-path (path-with-home "code/twittering-mode"))
 ;; (require 'twittering-mode)
 ;; (setq twittering-use-master-password t)      ; Save OAuth token
 ;; (setq twittering-icon-mode t)                ; Show icons
@@ -362,8 +362,9 @@ Pop up the buffer containing MARKER and scroll to MARKER if we ask the user."
 (setq nrepl-popup-stacktraces nil)
 
 (require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+
 (package-initialize)
 
 (add-hook 'java-mode-hook (lambda ()
@@ -372,6 +373,7 @@ Pop up the buffer containing MARKER and scroll to MARKER if we ask the user."
 (custom-set-variables
  '(haskell-mode-hook '(turn-on-haskell-indentation)))
 
+(require 'magit)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -384,3 +386,5 @@ Pop up the buffer containing MARKER and scroll to MARKER if we ask the user."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(setenv "SSH_AUTH_SOCK" (concat (getenv "HOME") "/.ssh-auth-sock"))
