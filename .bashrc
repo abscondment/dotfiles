@@ -141,6 +141,8 @@ if ! env | grep -q SSH_AGENT_PID >/dev/null; then
     agent_started=1
 fi
 
+ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock
+
 # GIT SECRETS
 source "$HOME/.secrets/git.bashrc"
 
@@ -182,3 +184,6 @@ export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$PATH"
 eval "$(rbenv init -)"
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
