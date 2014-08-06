@@ -133,15 +133,15 @@ export LSCOLORS="$dir_c$sym_c$socket_c$pipe_c$x_c$bspec_c$cspec_c$x_setuid_c$x_s
 # ssh-agent
 
 # start agent and set environment variables, if needed
-agent_started=0
-if ! env | grep -q SSH_AGENT_PID >/dev/null; then
-    echo "Starting ssh agent"
-    eval $(ssh-agent -s)
-    ssh-add ~/.ssh/id_madronalabs
-    agent_started=1
-fi
 
+test -r ~/.agent && . ~/.agent
+ssh-add -l > /dev/null 2>&1
+test ${?} = 2 && ssh-agent -s > ~/.agent
+ssh-add ~/.ssh/id_madronalabs
 ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock
+ssh-add -l > /dev/null 2>&1
+test $? = 1 && ssh-add
+
 
 # GIT SECRETS
 source "$HOME/.secrets/git.bashrc"
