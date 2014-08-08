@@ -279,7 +279,8 @@ Pop up the buffer containing MARKER and scroll to MARKER if we ask the user."
 (setq org-agenda-files
       (mapcar 'path-with-home
               (list "Documents/org/contracting.org"
-                    "Documents/org/spare5.org")))
+                    "Documents/org/spare5.org"
+                    "Documents/org/todo.org")))
 
 ;;; define categories that should be excluded
 (setq org-export-exclude-category (list "home" "contracting" "private" "work"))
