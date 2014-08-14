@@ -131,13 +131,15 @@ dir_w_c=ac
 export LSCOLORS="$dir_c$sym_c$socket_c$pipe_c$x_c$bspec_c$cspec_c$x_setuid_c$x_setgid_c$dir_w_sticky_c$dir_w_c"
 
 # ssh-agent
-
 # start agent and set environment variables, if needed
-
 test -r ~/.agent && . ~/.agent
 ssh-add -l > /dev/null 2>&1
 test ${?} = 2 && ssh-agent -s > ~/.agent
+##
+## Add keys to forward:
 ssh-add ~/.ssh/id_madronalabs
+##
+##
 ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock
 ssh-add -l > /dev/null 2>&1
 test $? = 1 && ssh-add
