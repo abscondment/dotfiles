@@ -275,15 +275,12 @@ Pop up the buffer containing MARKER and scroll to MARKER if we ask the user."
 ;; org-mode
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cb" 'org-iswitchb)
 (setq org-log-done t)
-(setq org-agenda-files
-      (mapcar 'path-with-home
-              (list "Documents/org/contracting.org"
-                    "Documents/org/spare5.org"
-                    "Documents/org/todo.org")))
+(setq org-agenda-files (setq org-agenda-files '("~/Documents/org")))
 
 ;;; define categories that should be excluded
-(setq org-export-exclude-category (list "home" "contracting" "private" "work"))
+;(setq org-export-exclude-category (list "home" "contracting" "private" "work"))
 
 ;;; export all scheduled TODOs
 (setq org-icalendar-use-scheduled '(todo-start event-if-todo))
