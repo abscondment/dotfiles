@@ -144,6 +144,10 @@ ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock
 ssh-add -l > /dev/null 2>&1
 test $? = 1 && ssh-add
 
+portslay () {
+   # portslay:  kill the task active on the specified TCP port
+   kill -9 `lsof -i tcp:$1 | tail -1 | awk '{ print $2;}'`
+}
 
 # GIT SECRETS
 source "$HOME/.secrets/git.bashrc"
