@@ -63,7 +63,7 @@
 ;; (global-set-key-override "\177" 'backward-delete-char-untabify)
 
 (global-set-key "\C-\\"     'advertised-undo)
-(global-set-key "\C-c\C-c"      'comment-region)  
+(global-set-key "\C-c\C-c"      'comment-region)
 (global-set-key "\C-c\C-u"  'uncomment-region)
 (global-set-key "\C-m"      'newline-and-indent)
 (global-set-key "\C-x."     'find-tag)
@@ -80,7 +80,7 @@
 
 ;; mini-buffer
 (define-key minibuffer-local-map "\t" 'hippie-expand)
-   
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; movement
 
@@ -106,17 +106,17 @@
 ;;
 ;;(global-set-key [C-right]     'forward-word)
 ;;(global-set-key [C-kp-right]  'forward-word)
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; mistakes
 
-(global-set-key "\C-xf"     'find-file) 
+(global-set-key "\C-xf"     'find-file)
 (global-set-key "\C-x\C-f"  'find-file)
 (global-set-key "\C-xs"     'save-buffer)
 (global-set-key "\C-x\C-s"  'save-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; p4/csc 
+;;; p4/csc
 
 ;;(global-set-key [f1]      'p4-edit)
 (global-set-key [f3]        'svn-diff)
@@ -153,11 +153,6 @@
 (global-set-key-override "\C-c\C-c" 'comint-interrupt-subjob 'shell-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; imenu
-(when window-system
-  (global-set-key [C-down-mouse-3] 'imenu))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; abtags
 
 ;; A helper to set M-z to abtags after the .emacs file has loaded, if
@@ -176,36 +171,6 @@
 
 (defvar my-font nil)
 
-(when window-system
-  (blink-cursor-mode 0)
-  (set-scroll-bar-mode nil)
-  (setq visible-bell t)
-  (tool-bar-mode 0)
-  (transient-mark-mode 0)
-
-  (setq window-position 'center)
-  (setq window-columns 100)
-  (setq window-fudge '(0 0 0 0))
-  (if is-win32 (setq window-fudge '(0 0 0 55)))
-  (if is-win32 (setq my-font (window-build-font "Courier New" 9)))
-
-  (window-set-frame-default 'auto-raise nil)
-  (window-set-frame-default 'cursor-type 'box)
-  (window-set-frame-default 'scroll-bar-width 12)
-
-  ;; frame title
-  (setq frame-title-format
-        (concat "Emacs@"
-                (if (string-match "^\\([^.]+\\)\..+" system-name)
-                    (match-string 1 system-name)
-                  system-name)
-                " - %f")))
-
-(when (or window-system (not is-win32))
-  (setq font-lock-verbose 2048)
-  (setq font-lock-maximum-decoration t)
-  (global-font-lock-mode t))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; amd's color theme - turned off by default
@@ -217,15 +182,15 @@
       (foreground-color . "white")
       (cursor-color     . "yellow")
       (background-mode  . dark))
-     
+
      (default      ((t (nil))))
      (fringe       ((t (                    :background "grey20"))))
      (modeline     ((t (:foreground "white" :background "darkslateblue"))))
      (region       ((t (                    :background "midnight blue"))))
      (highlight    ((t (                    :background "#13385b"))))
-     
+
      (minibuffer-prompt            ((t (:foreground "gold" :bold t))))
-     
+
      (font-lock-builtin-face       ((t (:foreground "cornflower blue"))))
      (font-lock-comment-face       ((t (:foreground "green"))))
      (font-lock-doc-face           ((t (:foreground "green"))))
@@ -241,7 +206,7 @@
 
 (defun color-theme-amd-win32 ()
   (color-theme-amd)
-  (let ((color-theme-is-cumulative t))  
+  (let ((color-theme-is-cumulative t))
     (color-theme-install
      '(color-theme-amd-win32
        nil
@@ -253,7 +218,7 @@
 
 (defun color-theme-amd-linux ()
   (color-theme-amd)
-  (let ((color-theme-is-cumulative t))  
+  (let ((color-theme-is-cumulative t))
     (color-theme-install
      '(color-theme-amd-win32
        ((background-color . "black"))
@@ -263,7 +228,7 @@
 
 (defun color-theme-amd-linux-nw ()
   (color-theme-amd)
-  (let ((color-theme-is-cumulative t))  
+  (let ((color-theme-is-cumulative t))
     (color-theme-install
      '(color-theme-amd-win32
        nil

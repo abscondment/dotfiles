@@ -28,51 +28,22 @@ list is used to fill in the magic values for the font name."
 ;;; Function to setup the window properties
 
 (defun window-setup ()
-  (if is-win32 (set-frame-font my-font))
-  (if display-time-format (display-time)))
+  (mouse-wheel-mode t)
+  (blink-cursor-mode 1)
+  ;; highlight line-mode
+  (global-hl-line-mode)
+  ;; no menus
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (transient-mark-mode t)
+  (display-time))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Position the main window at startup.
 ;;; Executed after .emacs is loaded in the after-init-hook.
 
-(defvar window-position 'center)
-(defvar window-columns 100)
-(defvar window-fudge '(0 0 0 0))
-
 (defun window-layout ()
   (window-setup)
-  (when is-win32
-    (window-set-frame-default 'font my-font))
-  (when window-position 
-    (let ((display-width  (x-display-pixel-width))
-          (display-height (x-display-pixel-height))
-          (left   (nth 0 window-fudge))
-          (right  (nth 1 window-fudge))
-          (top    (nth 2 window-fudge))
-          (bottom (nth 3 window-fudge))
-          (width (* (+ 2 window-columns) (frame-char-width)))
-          )
-      
-      (window-set-frame-default
-       'left
-       (case window-position
-         ('right (- display-width (+ width right 15)))
-         ('left left)
-         ('center (/ (- display-width width) 2))))
-      (window-set-frame-default 'top top)
-      (window-set-frame-default 'width window-columns)
-      (window-set-frame-default 'height (/ (- display-height top bottom 25)
-                                           (frame-char-height))))))
+  (set-frame-size (selected-frame) 240 50))
+
 (add-hook 'after-init-hook 'window-layout)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Start gnusev if available.
-
-(eval-when-compile (require 'gnuserv))
-(when is-win32
-  (dolist (i (split-string (getenv "PATH") ";"))
-    (when (file-executable-p (format "%s/gnuclientw.exe" i))
-      (require 'gnuserv)
-      (gnuserv-start)
-      (setq gnuserv-frame (selected-frame))
-      (defun server-sentinel (proc msg) nil))))
