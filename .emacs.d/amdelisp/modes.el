@@ -3,16 +3,16 @@
 (defun autoloads (file &rest funcs)
   "A helper function written by jp that lets you autoload many
 functions from one source file."
-  (let ((result))  
-    (while (not (null funcs))  
-      (let ((func-string (format "%s" (car funcs))))  
-        (setq result (cons `(autoload (quote ,(car funcs))  
+  (let ((result))
+    (while (not (null funcs))
+      (let ((func-string (format "%s" (car funcs))))
+        (setq result (cons `(autoload (quote ,(car funcs))
                               ,file
-                              ,func-string  
-                              (quote ,(car funcs)))  
-                           result)))  
-      (setq funcs (cdr funcs)))  
-    (eval `(progn ,@result))))  
+                              ,func-string
+                              (quote ,(car funcs)))
+                           result)))
+      (setq funcs (cdr funcs)))
+    (eval `(progn ,@result))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; etags
@@ -26,7 +26,7 @@ functions from one source file."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ansi-color
 
-(autoloads "ansi-color"  
+(autoloads "ansi-color"
            'ansi-color-for-comint-mode-on
            'ansi-color-apply-on-region)
 
@@ -94,13 +94,6 @@ functions from one source file."
   (interactive)
   (setq c-echo-syntactic-information-p (not c-echo-syntactic-information-p)))
 
-;; some added keywords
-(when window-system
-  (defvar plain-face (make-face 'plain-face))
-  (defconst comment-fixer (list (cons "^\\([ \t]+\\)" '(1 plain-face t))))
-  (font-lock-add-keywords 'c++-mode comment-fixer)
-  (font-lock-add-keywords 'java-mode comment-fixer))
-
 (defun my-cc-common-setup ()
   (setq c-auto-newline nil
         c-basic-offset 2
@@ -109,16 +102,6 @@ functions from one source file."
         fill-column 80
         indent-tabs-mode nil
         )
-  (when window-system
-    ;; add some extra types
-    (setq c++-font-lock-extra-types
-          (list
-           (eval-when-compile
-             (regexp-opt
-              '( ;; vb
-                "var" "function"
-                )))))
-    )
   (c-setup-filladapt)
   (define-key c-mode-base-map "\C-m" `c-context-line-break)
   (define-key c-mode-base-map "\C-c\C-u" 'uncomment-region))
@@ -129,19 +112,19 @@ functions from one source file."
 ;;;(require 'dabbrev)
 (define-abbrev-table 'java-mode-abbrev-table
   '(("sop" "System.out.println" nil 1)
-    ("sof" "System.out.flush" nil 1)    
+    ("sof" "System.out.flush" nil 1)
     ("sep" "System.err.println" nil 1)
     ("ctm" "System.currentTimeMillis" nil 1)
     ("sac" "System.arraycopy" nil 1)
     ("ija" "import java.awt.*")
-    ("iji" "import java.io.*")    
+    ("iji" "import java.io.*")
     ("ijn" "import java.net.*")
     ("ijt" "import java.text.*")
     ("iju" "import java.util.*")
     ("cch" "/**
  *
  *
- * @author  
+ * @author
  * @version     %\111%, %\107%
  */" java-class-comment-hook 0)
     ("mch" "/**
@@ -154,7 +137,7 @@ functions from one source file."
     ("cch" "/**
  *
  *
- * @author  
+ * @author
  * @version     %\111%, %\107%
  */" java-class-comment-hook 0)
     ("mch" "/**
@@ -215,8 +198,7 @@ functions from one source file."
    t)
   (setq tab-width 2
         c-basic-offset 2)
-  (when window-system
-    (setq font-lock-keywords java-font-lock-keywords-3)))
+)
 (add-hook 'java-mode-hook 'my-java-setup)
 
 (defun jad-buffer ()
@@ -317,17 +299,12 @@ functions from one source file."
                          (substatement-open . 0)
                          (statement-block-intro . +)
                          (case-label . +)
-                         (block-open - 0)            
+                         (block-open - 0)
                          )))
    t)
   )
 (add-hook 'csharp-mode-hook 'my-csharp-setup)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; vb
-
-(autoload 'visual-basic-mode "visual-basic-mode" "visual-basic-mode" t)
-(add-to-list 'auto-mode-alist '("\\.\\(frm\\|bas\\|cls\\|dsm\\|vbs\\)$" . visual-basic-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; text
@@ -345,21 +322,6 @@ functions from one source file."
 (defun my-perl-setup ()
   (setq tab-width 2))
 (add-hook 'perl-mode-hook 'my-perl-setup)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; cperl
-
-;; (eval-when-compile (require 'cperl-mode))
-;; (autoload 'perl-mode "cperl-mode" "alternate mode for editing Perl programs" t)
-;; (defun my-cperl-setup ()
-;;   (setq cperl-indent-level 2)
-;;   (setq cperl-invalid-face nil)
-;;   (setq cperl-continued-brace-offset -2)
-;;   (setq tab-width 2)
-;;   (set-face-background 'cperl-hash-face (face-background 'font-lock-keyword-face))
-;;   )
-  
-;; (add-hook 'cperl-mode-hook 'my-cperl-setup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; python
@@ -453,7 +415,7 @@ functions from one source file."
   (setq js2-basic-offset 2
         js2-auto-indent-p nil
         js2-enter-indents-newline t)
-  (hexcolor-add-to-font-lock))  
+  (hexcolor-add-to-font-lock))
 (eval-after-load "js2"
   '(add-hook 'js2-mode-hook 'my-js2-setup))
 (add-to-list 'auto-mode-alist '("\\.as$" . js2-mode))
@@ -484,83 +446,6 @@ functions from one source file."
              (if (string= sql-user "sys")
                  (list "as" "sysdba")
                nil)))))
-
-(defvar sql-added-font-lock-keywords nil)
-(when window-system
-  (let* ((keywords
-          (eval-when-compile
-            (regexp-opt
-             '("access" "add" "all" "alter" "and" "any" "as" "asc" "audit"
-               "between" "by" "char" "check" "cluster" "column" "comment"
-               "compress" "connect" "create" "current" "date" "decimal"
-               "default" "delete" "desc" "distinct" "drop" "else" "exclusive"
-               "exists" "file" "float" "for" "from" "grant" "group" "having"
-               "identified" "immediate" "in" "increment" "index" "initial"
-               "insert" "integer" "intersect" "into" "is" "level" "like"
-               "lock" "long" "maxextents" "minus" "mlslabel" "mode" "modify"
-               "noaudit" "nocompress" "not" "nowait" "null" "number" "of"
-               "offline" "on" "online" "option" "or" "order" "pctfree" "prior"
-               "privileges" "public" "raw" "rename" "resource" "revoke" "row"
-               "rowid" "rownum" "rows" "select" "session" "set" "share" "size"
-               "smallint" "start" "successful" "synonym" "sysdate" "table"
-               "then" "to" "trigger" "uid" "union" "unique" "update" "user"
-               "validate" "values" "varchar" "varchar2" "view" "whenever"
-               "where" "with" "bfile" "binary_double" "binary_float" "blob"
-               "byte" "char" "clob" "date" "long" "long" "nchar" "nclob"
-               "number" "nvarchar2" "raw" "rowid" "timestamp" "urowid"
-               "varchar2" "join" "inner" "outer" "left" "right"
-               "use" "source" "if"
-               ) t)))
-         (functions
-          (eval-when-compile
-            (regexp-opt
-             '("case" "else" "then" "when" "avg" "corr" "covar_pop"
-               "covar_samp" "count" "cume_dist" "dense_rank" "first"
-               "first_value" "lag" "last" "last_value" "lead" "max" "min"
-               "ntile" "percent_rank" "percentile_cont" "percentile_disc"
-               "rank" "ratio_to_report" "row_number" "stddev" "stddev_pop"
-               "stddev_samp" "sum" "var_pop" "var_samp" "variance" "abs"
-               "acos" "add_months" "ascii" "asciistr" "asin" "atan" "atan2"
-               "bfilename" "bin_to_num" "bitand" "cardinality" "cast" "ceil"
-               "chartorowid" "chr" "coalesce" "collect" "compose" "concat"
-               "convert" "cos" "cosh" "current_date" "current_timestamp"
-               "cv" "dbtimezone" "decode" "decompose" "depth" "deref" "dump"
-               "empty_blob, empty_clob" "existsnode" "exp" "extract" "extract"
-               "extractvalue" "floor" "from_tz" "greatest" "hextoraw" "initcap"
-               "instr" "iteration_number" "last_day" "least" "length" "ln"
-               "lnnvl" "localtimestamp" "log" "lower" "lpad" "ltrim" "make_ref"
-               "mod" "months_between" "nanvl" "new_time" "next_day" "nlssort"
-               "nls_charset_decl_len" "nls_charset_id" "nls_charset_name"
-               "nls_initcap" "nls_lower" "nls_upper" "nullif" "numtoyminterval"
-               "nvl" "nvl2" "ora_hash" "path" "power" "powermultiset"
-               "powermultiset_by_cardinality" "presentnnv" "presentv" "previous"
-               "rawtohex" "rawtonhex" "ref" "reftohex" "regexp_instr"
-               "regexp_replace" "regexp_substr" "remainder" "replace"
-               "round" "round" "rowidtochar" "rowidtonchar" "rpad" "rtrim"
-               "scn_to_timestamp" "sessiontimezone" "set" "sign" "sin" "sinh"
-               "soundex" "sqrt" "substr" "sysdate" "systimestamp"
-               "sys_connect_by_path" "sys_context" "sys_dburigen"
-               "sys_extract_utc" "sys_extract_utc" "sys_guid" "sys_typeid"
-               "sys_xmlagg" "sys_xmlgen" "tan" "tanh" "timestamp_to_scn"
-               "to_binary_double" "to_binary_float" "to_char" "to_clob"
-               "to_date" "to_dsinterval" "to_lob" "to_multi_byte" "to_nchar"
-               "to_nclob" "to_number" "to_single_byte" "to_timestamp"
-               "to_timestamp_tz" "to_yminterval" "translate" "translate"
-               "treat" "trim" "trunc" "trunc" "tz_offset" "uid" "unistr"
-               "updatexml" "upper" "user" "userenv" "value" "vsize"
-               "width_bucket" "xmlagg" "xmlcolattval" "xmlconcat"
-               "xmlforest" "xmlsequence" "xmltransform") t)))
-         )
-    (setq sql-added-font-lock-keywords
-          (list
-           (cons "SQL>" 'font-lock-comment-face)
-           (cons (concat "\\<" keywords "\\>")  'font-lock-constant-face)
-           (cons (concat "\\<" functions "\\>") 'font-lock-constant-face)
-           ;; this is for TemplateToolkit, not SQL... a bit of a hack
-           (cons "\\[%.*%\\]" 'border))))
-  (font-lock-add-keywords 'sql-mode sql-added-font-lock-keywords)
-  (font-lock-add-keywords 'sql-interactive-mode sql-added-font-lock-keywords)         
-  )
 
 (defun my-sql-setup ()
   (sql-set-sqli-buffer-generally))
@@ -612,7 +497,7 @@ functions from one source file."
 
 (eval-when-compile (require 'generic))
 (require 'generic)
-  
+
 (define-generic-mode 'properties-generic-mode
   (list ?\#)
   nil
@@ -625,7 +510,7 @@ functions from one source file."
         "\\.properties$" "\\.contract$")
   nil
   "Generic mode for properties.txt files.")
-  
+
 (define-generic-mode 'xdefaults-generic-mode
   (list ?\!)
   nil
@@ -654,7 +539,7 @@ functions from one source file."
     ("^==[0-9]+== \\([0-9]+ bytes in [0-9]+ blocks are still .*\\)$" (1 'font-lock-constant-face))
     ("^==[0-9]+== \\([0-9]+ bytes in [0-9]+ blocks are .* lost .*\\)$" (1 'font-lock-string-face))
     ("^==[0-9]+==  \\(Address 0x[0-9A-f]+ is [0-9]+ bytes .*\\)$" (1 'font-lock-string-face))
-    ("^\\(==[0-9]+==\\) .*$" (1 'font-lock-builtin-face))      
+    ("^\\(==[0-9]+==\\) .*$" (1 'font-lock-builtin-face))
     )
   (list "/valgrind.txt")
   nil
@@ -668,7 +553,7 @@ functions from one source file."
     '(("!\\([A-Za-z]+\\)" (1 'font-lock-builtin-face))
       ("$[({]?\\([A-Za-z0-9_]+\\)[)}]?" (1 'font-lock-variable-name-face))
       )
-    (list "\\.\\(nsi\\|nsh\\)$")    
+    (list "\\.\\(nsi\\|nsh\\)$")
     nil
     "Generic mode for nsis files."))
 
@@ -763,7 +648,7 @@ column point starts at, `tab-to-tab-stop' is done instead."
         ps-print-color-p 'black-white
         ps-spool-duplex t
         ps-zebra-stripes t
-        
+
         ps-left-margin   (/ (* 72 1.2) 2.54)
         ps-right-margin  (/ (* 72 0.2) 2.54)
         ps-bottom-margin (/ (* 72 0.5) 2.54)
@@ -786,94 +671,13 @@ column point starts at, `tab-to-tab-stop' is done instead."
 
 (eval-when-compile (require 'gud))
 
-(defvar gud-added-font-lock-keywords nil)
-(when window-system
-  (let* ((commands
-          (eval-when-compile
-            (regexp-opt
-             '("adb" "assign" "attach" "bsearch" "call" "cancel" "catch" "check" "clear"
-               "collector" "commands" "cont" "dbxdebug" "dbxenv" "debug" "delete" "detach"
-               "dis" "display" "document" "down" "dump" "edit" "examine" "exception"
-               "exists" "file" "files" "fix" "fixed" "frame" "func" "funcs" "handler"
-               "help" "hide" "history" "ignore" "import" "intercept" "language" "line"
-               "list" "listi" "loadobject" "loadobjects" "lwp" "lwps" "mmapfile" "module"
-               "modules" "next" "nexti" "pathmap" "pop" "print" "prog" "quit" "regs"
-               "replay" "rerun" "restore" "rprint" "run" "runargs" "save" "scopes"
-               "search" "setenv" "showblock" "showleaks" "showmemuse" "source" "status"
-               "step" "stepi" "stop" "stopi" "suppress" "sync" "syncs" "thread" "threads"
-               "trace" "tracei" "unbutton" "uncheck" "undisplay" "unhide" "unintercept"
-               "unsuppress" "up" "use" "whatis" "when" "wheni" "where" "whereami" "whereis"
-               "which" "whocatches") t)))
-         )
-    (setq gud-added-font-lock-keywords
-          (list
-           (cons "dbx<[0-9]+>" 'font-lock-comment-face)
-           (cons (concat "\\<" commands "\\>") 'font-lock-builtin-face)))
-    (font-lock-add-keywords 'gud-mode gud-added-font-lock-keywords)))
 
-(defun my-gud-setup ()
-  (when window-system (font-lock-mode t)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; highlight while completing
-
-(defun make-completion-re (re) (concat "\\<" re "\\([ \n\t]\\|\\'\\)"))
-(defun make-prefix-re (prefix) (make-completion-re (concat prefix "[^ \n\t]*")))
-(defun make-exact-re  (words)  (make-completion-re words))
-(defun make-suffix-re (suffix) (make-completion-re (concat "[^ \n\t]+" suffix)))
-
-(defun setup-completion-keywords ()
-  (when window-system
-    (let* (
-           (ext-1
-            (eval-when-compile
-              (regexp-opt '("js" "h" "h++" "hh" "hpp" "hxx"
-                            "bat" "sys" "eps" "ps" "inf" "ini" "reg"
-                            "btm" "conf" "conf.in" "properties"
-                            "text" "txt") t)))
-           (ext-2
-            (eval-when-compile
-              (regexp-opt '("mak" "jam" "jspi" "el" "pl" "cgi"
-                            "c" "c++" "cc" "cpp" "cs" "cxx" "log"
-                            "java" "tag" "tld" "xsl" "wml" "dtd" "mk"
-                            "rb") t)))
-           (ext-3
-            (eval-when-compile
-              (regexp-opt '("css" "py" "htm" "html" "arc" "jar" "lzh"
-                            "sql" "zip" "zoo" "tar" "shtml" "shtm"
-                            "asp" "idl" "jsp" "xml" "rhtml") t)))
-           (exact-1
-            (eval-when-compile
-              (regexp-opt '("makefile" "gnumakefile" "makefile.in") t)))
-           )
-      (setq completion-added-font-lock-keywords
-            (list
-             (cons "\\<[^ \n]*/" 'font-lock-builtin-face)
-             (cons (make-suffix-re (concat "\\." ext-1)) 'font-lock-constant-face)
-             (cons (make-suffix-re (concat "\\." ext-2)) 'font-lock-type-face)
-             (cons (make-suffix-re (concat "\\." ext-3)) 'font-lock-comment-face)
-             (cons (make-exact-re exact-1) 'font-lock-constant-face)
-             )))))
-
-(when window-system
-  (add-hook 'after-init-hook 'setup-completion-keywords))
-
-(eval-when-compile (require 'abtags))
-(defun completion-setup-directory-face()
-  (when (and
-         window-system
-         (or (eq minibuffer-completion-table 'read-file-name-internal)
-             (and (featurep 'abtags)
-                  (eq minibuffer-completion-table abtags-cache))))
-    (setq font-lock-defaults '(completion-added-font-lock-keywords t t))
-    (font-lock-fontify-buffer)))
-(add-hook 'completion-list-mode-hook 'completion-setup-directory-face)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; apache
 
 (add-to-list 'auto-mode-alist '("\\my.cnf$" . apache-mode))
-             
+
 ;; (add-to-list
 ;;  'auto-mode-alist
 ;;  (cons (format "/%s$"
@@ -899,7 +703,7 @@ column point starts at, `tab-to-tab-stop' is done instead."
 
 (eval-when-compile (require 'diff-mode))
 (defun my-diff-setup ()
-  (copy-face 'font-lock-string-face 'diff-removed-face)  
+  (copy-face 'font-lock-string-face 'diff-removed-face)
   (copy-face 'font-lock-builtin-face 'diff-added-face)
   (copy-face 'font-lock-comment-face 'diff-hunk-header-face))
 (add-hook 'diff-mode-hook 'my-diff-setup)
@@ -922,11 +726,11 @@ column point starts at, `tab-to-tab-stop' is done instead."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; p4
 
-;; (autoloads "p4"  
-;;            'p4-client  
-;;            'p4-diff  
+;; (autoloads "p4"
+;;            'p4-client
+;;            'p4-diff
 ;;            'p4-edit
-;;            'p4-opened  
+;;            'p4-opened
 ;;            'p4-revert
 ;;            'p4-toggle-read-only
 ;;            'p4-set-client-name)
@@ -977,7 +781,7 @@ column point starts at, `tab-to-tab-stop' is done instead."
 ;;       (p4-buffer-mode)
 ;;       (turn-on-auto-fill)
 ;;       (re-search-forward "Description:\n\t" nil t))
-;;      ((string= "User" specification)   (p4-buffer-mode))     
+;;      ((string= "User" specification)   (p4-buffer-mode))
 ;;      ((string= "Client" specification) (p4-buffer-mode) (auto-fill-mode 0))
 ;;      )))
 ;; (add-hook 'find-file-hooks 'p4-pick-mode-hook)
@@ -987,7 +791,7 @@ column point starts at, `tab-to-tab-stop' is done instead."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; svn
 
-(autoloads "psvn"  
+(autoloads "psvn"
            'svn-status)
 
 (eval-when-compile (require 'psvn))
@@ -1001,7 +805,7 @@ column point starts at, `tab-to-tab-stop' is done instead."
    (list "\\<JOB-[0-9]+\\>" 0 'font-lock-string-face)
    (list "^\\(--This line,.*--\\)" 1 'font-lock-comment-face)
    (list "^\\(A    .+\\)" 1 'font-lock-constant-face)
-   (list "^\\(D    .+\\)" 1 'font-lock-type-face)   
+   (list "^\\(D    .+\\)" 1 'font-lock-type-face)
    (list "^\\([^AD]    .+\\)" 1 'font-lock-keyword-face))
   (list "/svn-commit\\(\\.[0-9]\\)?\\.tmp")
   (list (lambda ()
@@ -1026,7 +830,7 @@ column point starts at, `tab-to-tab-stop' is done instead."
   (copy-face 'font-lock-comment-face       'nxml-comment-content-face)
   (copy-face 'font-lock-constant-face       'nxml-comment-delimiter-face)
   (modify-syntax-entry ?= ".")
-  (modify-syntax-entry ?& "w")  
+  (modify-syntax-entry ?& "w")
   ;; (modify-syntax-entry ?< ".")
   ;; (modify-syntax-entry ?> ".")
   ;; (modify-syntax-entry ?& ".")
@@ -1097,11 +901,11 @@ column point starts at, `tab-to-tab-stop' is done instead."
                                           'nxml-element-prefix-face
                                           'nxml-element-colon-face
                                           'nxml-element-local-name-face)))
-                   
+
                                         ; added by amd
                    ((functionp action)
                     (funcall action start end))
-                   
+
                    ((eq action 'attributes)
                     (nxml-fontify-attributes))
                    ((eq action 'processing-instruction-content)
@@ -1199,13 +1003,15 @@ column point starts at, `tab-to-tab-stop' is done instead."
 ;; ruby mode
 
 (eval-when-compile (require 'ruby-mode)
-                   (require 'ruby-electric))
+                   ;; (require 'ruby-electric)
+		   )
 
 (defun my-ruby-setup ()
   (setq indent-tabs-mode nil)
   (define-key ruby-mode-map "\C-m" 'newline-and-indent)
-  (require 'ruby-electric)
-  (ruby-electric-mode))
+  ;; (require 'ruby-electric)
+  ;; (ruby-electric-mode)
+  )
 (add-hook 'ruby-mode-hook 'my-ruby-setup)
 (add-to-list 'auto-mode-alist '("\\.rb\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("/Rakefile$" . ruby-mode))

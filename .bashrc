@@ -144,6 +144,10 @@ ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock
 ssh-add -l > /dev/null 2>&1
 test $? = 1 && ssh-add
 
+portslay () {
+   # portslay:  kill the task active on the specified TCP port
+   kill -9 `lsof -i tcp:$1 | tail -1 | awk '{ print $2;}'`
+}
 
 # GIT SECRETS
 source "$HOME/.secrets/git.bashrc"
@@ -151,20 +155,7 @@ source "$HOME/.secrets/git.bashrc"
 # AWS SECRETS
 source "$HOME/.secrets/ec2/aws.bashrc"
 source "$HOME/.secrets/ec2/heroku.bashrc"
-
-export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.secrets/ec2/readabl/pk-*.pem)"
-export EC2_CERT="$(/bin/ls $HOME/.secrets/ec2/readabl/cert-*.pem)"
-export EC2_HOME="$(find /usr/local/Cellar/ec2-api-tools -type d -depth 1 | sort | tail -1)/libexec"
-export EC2_REGION="us-west-1"
-
-# ami
-export EC2_AMITOOL_HOME="/usr/local/Cellar/ec2-ami-tools/1.3-45758/jars"
-
-# rds
-export AWS_RDS_HOME="/usr/local/Cellar/rds-command-line-tools/1.3.003/jars"
-# cloud-watch
-export AWS_CLOUDWATCH_HOME="/usr/local/Cellar/cloud-watch/1.0.20.0/libexec"
-export SERVICE_HOME="$AWS_CLOUDWATCH_HOME"
+source "$HOME/.secrets/ec2/securityco.bashrc"
 
 #export ANDROID_HOME="/usr/local/Cellar/android-sdk/r18"
 export ANDROID_HOME="/usr/local/opt/android-sdk"
