@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 DFDIR="$HOME/.dotfiles"
 
 # copy function
 function copy_from_dir() {
     for f in $(ls -a "$1"); do
-        if ([ ! -r "$HOME/$f" ] || [ "$(readlink -n "$HOME/$f")" != "$1/$f" ]) &&
+        if ( [ ! -r "$HOME/$f" ] || [ "$(readlink -n "$HOME/$f")" != "$1/$f" ] ) &&
             [ $f != "." ] && [ $f != ".." ] &&
             [ $f != "README.md" ] &&
             [ $f != "secrets" ] &&
