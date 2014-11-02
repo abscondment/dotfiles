@@ -142,7 +142,10 @@ ssh-add -l > /dev/null 2>&1
 test ${?} = 2 && ssh-agent -s > ~/.agent
 ##
 ## Add keys to forward:
-ssh-add ~/.ssh/id_madronalabs
+if [ -d ~/.ssh/id_madronalabs ];
+then
+    ssh-add ~/.ssh/id_madronalabs
+fi
 ##
 ##
 ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock
