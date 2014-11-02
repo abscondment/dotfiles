@@ -1,15 +1,15 @@
 ;; (setq debug-on-error t)
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
-
 (defun path-with-home (path)
   (format "%s/%s" (getenv "HOME") path))
 
 (defvar AMDELISP (format "%s/.emacs.d/amdelisp" (getenv "HOME")))
 (load (format "%s/start" AMDELISP))
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; look and feel
