@@ -371,12 +371,12 @@ functions from one source file."
 (add-to-list 'auto-mode-alist '("\\.htm[l]?$" . html-helper-mode))
 
 ;; mmm
-(require 'mmm-auto)
-(setq mmm-global-mode 'maybe)
-(setq mmm-submode-decoration-level 0)
+;; (require 'mmm-auto)
+;; (setq mmm-global-mode 'maybe)
+;; (setq mmm-submode-decoration-level 0)
 
-(mmm-add-mode-ext-class 'html-helper-mode nil 'embedded-css)
-(mmm-add-mode-ext-class 'html-helper-mode nil 'html-js)
+;; (mmm-add-mode-ext-class 'html-helper-mode nil 'embedded-css)
+;; (mmm-add-mode-ext-class 'html-helper-mode nil 'html-js)
 
 ;; hexcolor
 (defun hex-color-face (s)
@@ -405,9 +405,9 @@ functions from one source file."
 
 ;; jsp
 (add-to-list 'auto-mode-alist '("\\.jsp$" . html-helper-mode))
-(mmm-add-mode-ext-class 'html-helper-mode "\\.jsp$" 'jsp)
+;; (mmm-add-mode-ext-class 'html-helper-mode "\\.jsp$" 'jsp)
 (add-to-list 'auto-mode-alist '("\\.jspi$" . html-helper-mode))
-(mmm-add-mode-ext-class 'html-helper-mode "\\.jspi$" 'jsp)
+;; (mmm-add-mode-ext-class 'html-helper-mode "\\.jspi$" 'jsp)
 
 ;; js
 (setq js2-use-font-lock-faces t)
