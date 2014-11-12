@@ -146,6 +146,10 @@ if [ -d ~/.ssh/id_madronalabs ];
 then
     ssh-add ~/.ssh/id_madronalabs
 fi
+ls -x1 ~/.ssh/id_* | grep -v '.pub$' | while read k
+do
+    ssh-add $k
+done
 ##
 ##
 ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock
