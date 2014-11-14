@@ -67,26 +67,9 @@ case "$TERM" in
         ;;
 esac
 
-platform='unknown'
-case "$(uname)" in
-    Darwin*)
-	platform='osx'
-	;;
-    Linux*|linux*)
-	platform='linux'
-	# eval `adircolors -b`
-	;;
-    *)
-esac
-
 # Oh my, colors!
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-
 alias ls="ls -lG --color=auto"
-# alias xcodebuild="xcodebuild -activetarget -activeconfiguration -sdk iphonesimulator4.0"
-
-export EDITOR=emacs
-#export JAVA_OPTS=-Xmx1536m
 
 
 # OSX:
@@ -134,6 +117,24 @@ dir_w_sticky_c=ac
 dir_w_c=ac
 
 export LSCOLORS="$dir_c$sym_c$socket_c$pipe_c$x_c$bspec_c$cspec_c$x_setuid_c$x_setgid_c$dir_w_sticky_c$dir_w_c"
+
+platform='unknown'
+case "$(uname)" in
+    Darwin*)
+	platform='osx'
+    alias ls="ls -lG"
+	;;
+    Linux*|linux*)
+	platform='linux'
+	# eval `adircolors -b`
+	;;
+    *)
+esac
+
+# alias xcodebuild="xcodebuild -activetarget -activeconfiguration -sdk iphonesimulator4.0"
+
+export EDITOR=emacs
+#export JAVA_OPTS=-Xmx1536m
 
 # ssh-agent
 # start agent and set environment variables, if needed
