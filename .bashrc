@@ -51,6 +51,10 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+if [ -f "$HOME/.bashrc.fns" ]; then
+    . "$HOME/.bashrc.fns"
+fi
+
 # Screen settings
 alias screen="screen -e ^Ll"
 
@@ -69,7 +73,12 @@ esac
 
 # Oh my, colors!
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-alias ls="ls -lG --color=auto"
+if [[ $PLATFORM == 'osx' ]];
+then
+    alias ls="ls -lG"
+else
+    alias ls="ls -lG --color=auto"
+fi
 
 
 # OSX:
@@ -118,19 +127,6 @@ dir_w_c=ac
 
 export LSCOLORS="$dir_c$sym_c$socket_c$pipe_c$x_c$bspec_c$cspec_c$x_setuid_c$x_setgid_c$dir_w_sticky_c$dir_w_c"
 
-platform='unknown'
-case "$(uname)" in
-    Darwin*)
-	platform='osx'
-    alias ls="ls -lG"
-	;;
-    Linux*|linux*)
-	platform='linux'
-	# eval `adircolors -b`
-	;;
-    *)
-esac
-
 # alias xcodebuild="xcodebuild -activetarget -activeconfiguration -sdk iphonesimulator4.0"
 
 export EDITOR=emacs
@@ -175,7 +171,7 @@ export ANDROID_HOME="/usr/local/opt/android-sdk"
 export PATH="$ANDROID_HOME/bin:$ANDROID_HOME/platform-tools:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/bin"
 
 
-if [[ "$platform" == 'osx' ]];
+if [[ $PLATFORM == 'osx' ]];
 then
     export JAVA6_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
     export JAVA7_HOME="$(/usr/libexec/java_home)"

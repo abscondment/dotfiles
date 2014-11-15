@@ -1,0 +1,16 @@
+platform='unknown'
+case "$(uname)" in
+    Darwin*)
+	platform='osx'
+	;;
+    Linux*|linux*)
+	platform='linux'
+	# eval `adircolors -b`
+	;;
+    *)
+esac
+export PLATFORM="$platform"
+
+function sha512sum() {
+    shasum -a 512 "$1"
+}

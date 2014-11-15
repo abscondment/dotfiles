@@ -6,3 +6,4 @@
 /.lein/self-installs
 /secrets
 /secrets.tar
+/secrets.tar.asc.sha512sum

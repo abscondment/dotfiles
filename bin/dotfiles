@@ -2,6 +2,8 @@
 
 DFDIR="$HOME/.dotfiles"
 
+. "$DFDIR/.bashrc.fns"
+
 # copy function
 function copy_from_dir() {
     for f in $(ls -a "$1"); do
@@ -10,6 +12,7 @@ function copy_from_dir() {
             [ $f != "README.md" ] &&
             [ $f != "secrets" ] &&
             [ $f != "secrets.tar.asc" ] &&
+            [ $f != "secrets.tar.asc.sha512sum" ] &&
             [ $f != ".git" ] &&
             [ $f != ".gitignore" ] ; then
 	        echo "LINKING $f"
@@ -30,16 +33,20 @@ if [ ! -r $DFDIR ]; then
     $DFDIR
 fi
 
-# Decrypt any secrets
-if [ ! -r "$DFDIR/secrets" ]; then
-    echo "Decrypting secrets..."
-    if (gpg -da "$DFDIR/secrets.tar.asc" > "$DFDIR/secrets.tar" && tar xvf "$DFDIR/secrets.tar" -C $DFDIR); then
-        rm -f "$DFDIR/secrets.tar"
-    else
-        rm -f "$DFDIR/secrets.tar"
-        echo ; echo "Ruh roh. Error decrypting secrets!"
-        exit 1
+function did_secrets_change() {
+    local changed=0
+    if [ "$(cd $DFDIR && sha512sum secrets.tar.asc)" != "$(cd $DFDIR && cat secrets.tar.asc.sha512sum 2>/dev/null)" ];
+    then
+        local changed=1
     fi
+    echo $changed
+}
+
+
+# Decrypt any secrets
+if([ ! -r "$DFDIR/secrets" ] || [ "$(did_secrets_change)" -eq 1 ])
+then
+    . "$DFDIR/bin/extract-secrets"
 fi
 
 # actually move things into place
