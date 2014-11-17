@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for p in ~/.rbenv/plugins/*
+do
+    cd $p
+    git pull
+    cd -
+done

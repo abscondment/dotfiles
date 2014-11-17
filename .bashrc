@@ -51,6 +51,10 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+if [ -f "$HOME/.bashrc.fns" ]; then
+    . "$HOME/.bashrc.fns"
+fi
+
 # Screen settings
 alias screen="screen -e ^Ll"
 
@@ -67,22 +71,15 @@ case "$TERM" in
         ;;
 esac
 
-
 # Oh my, colors!
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+if [[ $PLATFORM == 'osx' ]];
+then
+    alias ls="ls -lG"
+else
+    alias ls="ls -lG --color=auto"
+fi
 
-alias ls="ls -lG"
-# alias xcodebuild="xcodebuild -activetarget -activeconfiguration -sdk iphonesimulator4.0"
-
-export EDITOR=emacs
-export JAVA_OPTS=-Xmx1536m
-
-# TODO: figure out if this file is being read in OSX or Linux,
-#       and choose dircolors or LSCOLORS based on that.
-#
-
-# Linux:
-#eval `adircolors -b`
 
 # OSX:
 # a     black
@@ -130,6 +127,11 @@ dir_w_c=ac
 
 export LSCOLORS="$dir_c$sym_c$socket_c$pipe_c$x_c$bspec_c$cspec_c$x_setuid_c$x_setgid_c$dir_w_sticky_c$dir_w_c"
 
+# alias xcodebuild="xcodebuild -activetarget -activeconfiguration -sdk iphonesimulator4.0"
+
+export EDITOR=emacs
+#export JAVA_OPTS=-Xmx1536m
+
 # ssh-agent
 # start agent and set environment variables, if needed
 test -r ~/.agent && . ~/.agent
@@ -137,7 +139,14 @@ ssh-add -l > /dev/null 2>&1
 test ${?} = 2 && ssh-agent -s > ~/.agent
 ##
 ## Add keys to forward:
-ssh-add ~/.ssh/id_madronalabs
+if [ -d ~/.ssh/id_madronalabs ];
+then
+    ssh-add ~/.ssh/id_madronalabs
+fi
+ls -x1 ~/.ssh/id_* | grep -v '.pub$' | while read k
+do
+    ssh-add $k
+done
 ##
 ##
 ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock
@@ -159,24 +168,28 @@ source "$HOME/.secrets/ec2/securityco.bashrc"
 
 #export ANDROID_HOME="/usr/local/Cellar/android-sdk/r18"
 export ANDROID_HOME="/usr/local/opt/android-sdk"
-export PATH=$ANDROID_HOME/bin:$ANDROID_HOME/platform-tools:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/Users/brendan/bin
+export PATH="$ANDROID_HOME/bin:$ANDROID_HOME/platform-tools:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/bin"
 
-export JAVA6_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
-export JAVA7_HOME="$(/usr/libexec/java_home)"
-export JAVA_HOME=$JAVA7_HOME
+
+if [[ $PLATFORM == 'osx' ]];
+then
+    export JAVA6_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
+    export JAVA7_HOME="$(/usr/libexec/java_home)"
+    export JAVA_HOME=$JAVA7_HOME
+fi
 
 # text stuff
 export TT_HOME="$HOME/code/tamingtext-book"
 export MAHOUT_HOME="$HOME/code/mahout"
 
-# breaks mirah
-# export JRUBY_OPTS="--1.9"
-
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
-export PATH="$HOME/.rbenv/bin:$PATH"
+if [[ $(type -t rbenv) ]] ;
+then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
 export PATH="$HOME/.cabal/bin:$PATH"
-eval "$(rbenv init -)"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

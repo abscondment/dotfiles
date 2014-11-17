@@ -371,7 +371,7 @@ functions from one source file."
 (add-to-list 'auto-mode-alist '("\\.htm[l]?$" . html-helper-mode))
 
 ;; mmm
-(require 'mmm-auto)
+(require 'mmm-mode)
 (setq mmm-global-mode 'maybe)
 (setq mmm-submode-decoration-level 0)
 

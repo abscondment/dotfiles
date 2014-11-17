@@ -1,12 +1,33 @@
 ;; (setq debug-on-error t)
 
+(defun path-with-home (path)
+  (format "%s/%s" (getenv "HOME") path))
+
 (require 'package)
+(require 'cl-lib)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
-(defun path-with-home (path)
-  (format "%s/%s" (getenv "HOME") path))
+(setq required-packages
+      '(haskell-mode
+        haml-mode
+        js2-mode
+        magit
+        mmm-mode
+        oauth2
+        org
+        paredit
+        ruby-electric
+        ))
+;;; install missing packages
+(let ((not-installed (cl-remove-if 'package-installed-p required-packages)))
+  (if not-installed
+      (if (y-or-n-p (format "there are %d packages to be installed. install them? "
+                            (length not-installed)))
+          (progn (package-refresh-contents)
+                 (dolist (package not-installed)
+                   (package-install package))))))
 
 (defvar AMDELISP (format "%s/.emacs.d/amdelisp" (getenv "HOME")))
 (load (format "%s/start" AMDELISP))
