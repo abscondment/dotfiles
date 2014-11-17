@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require 'uri'
+
+module Nolinky
+  extend self
+
+  def diequit(message)
+    puts message
+    exit 1
+  end
+
+  def print_redirects(uri)
+    uri = URI.parse(uri) rescue nil
+    if uri.nil?
+      diequit("Invalid URI (%s)\n\nUsage: nolinky <URI>" % [uri])
+    else
+      puts uri.query
+            .split('&')
+            .map{|pair| URI.parse(URI.unescape pair.split('=')[1]) rescue nil}
+            .select{|u| u.is_a? URI::HTTP}
+            .join("\n")
+    end
+  end
+end
+
+if File.identical?(__FILE__, $0)
+  if ARGV.count == 1
+    Nolinky.print_redirects(ARGV[0])
+  else
+    Nolinky.diequit("Usage: nolinky <URI>")
+  end
+end
