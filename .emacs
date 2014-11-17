@@ -225,6 +225,8 @@
                      ("\\.md" . markdown-mode)
                      ("\\.mirah" . ruby-mode)
                      ("Vagrantfile" . ruby-mode)
+                     (".eye" . ruby-mode)
+                     (".eye.j2" . ruby-mode)
                      ("Gemfile" . ruby-mode)
                      ("\\.org$" . org-mode))))
 
