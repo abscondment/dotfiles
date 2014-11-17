@@ -54,8 +54,14 @@ copy_from_dir "$DFDIR"
 copy_from_dir "$DFDIR/secrets"
 
 # special link for ssh config
-if ([ -e "$HOME/.ssh/config" ] ||
-        [ -L "$HOME/.ssh/config" ]); then
-	rm -f "$HOME/.ssh/config"
+if ([ ! -e "$HOME/.ssh/config" ] ||
+    [ ! -L "$HOME/.ssh/config" ] ||
+    [ "$(readlink $HOME/.ssh/config)" != "$DFDIR/secrets/.secrets/ssh-config" ]); then
+    echo "sshconfig link mismatch; fixing"
+    if [ -e "$HOME/.ssh/config" ]; then
+	    mv "$HOME/.ssh/config" "$HOME/.ssh/config-bak"
+    fi
+    ln -s "$DFDIR/secrets/.secrets/ssh-config" "$HOME/.ssh/config"
+else
+    echo "sshconfig link matches"
 fi
-cp "$DFDIR/secrets/.secrets/ssh-config" "$HOME/.ssh/config"
