@@ -193,3 +193,5 @@ export PATH="$HOME/.cabal/bin:$PATH"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+if [ -e /Users/brendan/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/brendan/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
