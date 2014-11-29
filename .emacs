@@ -3,23 +3,39 @@
 (defun path-with-home (path)
   (format "%s/%s" (getenv "HOME") path))
 
-(require 'package)
-(require 'cl-lib)
+(defvar AMDELISP (format "%s/.emacs.d/amdelisp" (getenv "HOME")))
+
+(if (< emacs-major-version 24)
+    ;; older
+    (progn
+      (load (format "%s/package" AMDELISP))
+      (load (path-with-home ".emacs.d/cl-lib/cl-lib"))
+      (setq required-packages
+            '(haskell-mode
+              magit
+              mmm-mode
+              oauth2
+              org
+              paredit)))
+  ;; emacs 24+
+  (progn
+    (require 'package)
+    (require 'cl-lib)
+    (setq required-packages
+          '(haskell-mode
+            haml-mode
+            js2-mode
+            magit
+            mmm-mode
+            oauth2
+            org
+            paredit
+            ruby-electric))))
+
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
-(setq required-packages
-      '(haskell-mode
-        haml-mode
-        js2-mode
-        magit
-        mmm-mode
-        oauth2
-        org
-        paredit
-        ruby-electric
-        ))
 ;;; install missing packages
 (let ((not-installed (cl-remove-if 'package-installed-p required-packages)))
   (if not-installed
@@ -29,7 +45,6 @@
                  (dolist (package not-installed)
                    (package-install package))))))
 
-(defvar AMDELISP (format "%s/.emacs.d/amdelisp" (getenv "HOME")))
 (load (format "%s/start" AMDELISP))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
