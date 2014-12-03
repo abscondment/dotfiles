@@ -184,9 +184,9 @@ export MAHOUT_HOME="$HOME/code/mahout"
 
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
+export PATH="$HOME/.rbenv/bin:$PATH"
 if [[ $(type -t rbenv) ]] ;
 then
-  export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
 fi
 export PATH="$HOME/.cabal/bin:$PATH"
