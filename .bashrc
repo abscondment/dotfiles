@@ -164,7 +164,7 @@ source "$HOME/.secrets/git.bashrc"
 # AWS SECRETS
 source "$HOME/.secrets/ec2/aws.bashrc"
 source "$HOME/.secrets/ec2/heroku.bashrc"
-source "$HOME/.secrets/ec2/securityco.bashrc"
+source "$HOME/.secrets/ec2/perimeter.bashrc"
 
 #export ANDROID_HOME="/usr/local/Cellar/android-sdk/r18"
 export ANDROID_HOME="/usr/local/opt/android-sdk"
@@ -193,3 +193,9 @@ export PATH="$HOME/.cabal/bin:$PATH"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+if [ -e /Users/brendan/.nix-profile/etc/profile.d/nix.sh ]
+then
+    . /Users/brendan/.nix-profile/etc/profile.d/nix.sh
+    export NIXPKGS=/Users/brendan/code/foss-clones/nixpkgs
+fi # added by Nix installer
