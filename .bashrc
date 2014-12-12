@@ -199,3 +199,5 @@ then
     . /Users/brendan/.nix-profile/etc/profile.d/nix.sh
     export NIXPKGS=/Users/brendan/code/foss-clones/nixpkgs
 fi # added by Nix installer
+
+export HISTFILESIZE=10000
