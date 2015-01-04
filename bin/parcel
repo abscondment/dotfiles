@@ -1,3 +1,5 @@
 #!/bin/sh
 
-open http://info.kingcounty.gov/Assessor/eRealProperty/Dashboard.aspx?ParcelNbr=$1
+number=$(echo $1 | sed 's/[^0-9]//')
+
+open http://info.kingcounty.gov/Assessor/eRealProperty/Dashboard.aspx?ParcelNbr=$number
