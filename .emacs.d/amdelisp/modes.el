@@ -62,12 +62,12 @@ functions from one source file."
 (add-hook 'compilation-mode-hook 'my-compile-setup)
 
 ;; this little helper highlights gcc compilation lines
-(defvar compilation-added-font-lock-keywords nil)
-(setq compilation-added-font-lock-keywords
-      (list
-       '("^\\(g?cc\\|[gc][+][+]\\) .* \\([^ ]+\.\\(c\\|cc\\|cpp\\)\\)$"
-         (1 font-lock-keyword-face) (2 font-lock-constant-face))))
-(font-lock-add-keywords 'compilation-mode compilation-added-font-lock-keywords)
+;; (defvar compilation-added-font-lock-keywords nil)
+;; (setq compilation-added-font-lock-keywords
+;;       (list
+;;        '("^\\(g?cc\\|[gc][+][+]\\) .* \\([^ ]+\.\\(c\\|cc\\|cpp\\)\\)$"
+;;          (1 font-lock-keyword-face) (2 font-lock-constant-face))))
+;; (font-lock-add-keywords 'compilation-mode compilation-added-font-lock-keywords)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; filladapt mode
@@ -81,160 +81,160 @@ functions from one source file."
 
 ;; shared
 
-(eval-when-compile (require 'cc-mode)
-                   (require 'dabbrev))
+;; (eval-when-compile (require 'cc-mode)
+;;                    (require 'dabbrev))
 
-(setq minor-mode-alist (assq-delete-all 'abbrev-mode minor-mode-alist))
+;; (setq minor-mode-alist (assq-delete-all 'abbrev-mode minor-mode-alist))
 
-;; guess-offset for all c++ files
-(eval-after-load "cc-mode"
-  '(require 'guess-offset))
+;; ;; guess-offset for all c++ files
+;; (eval-after-load "cc-mode"
+;;   '(require 'guess-offset))
 
-(defun cc-debug ()
-  (interactive)
-  (setq c-echo-syntactic-information-p (not c-echo-syntactic-information-p)))
+;; (defun cc-debug ()
+;;   (interactive)
+;;   (setq c-echo-syntactic-information-p (not c-echo-syntactic-information-p)))
 
-(defun my-cc-common-setup ()
-  (setq c-auto-newline nil
-        c-basic-offset 2
-        c-electric-pound-behavior '(alignleft)
-        dabbrev-case-replace nil
-        fill-column 80
-        indent-tabs-mode nil
-        )
-  (c-setup-filladapt)
-  (define-key c-mode-base-map "\C-m" `c-context-line-break)
-  (define-key c-mode-base-map "\C-c\C-u" 'uncomment-region))
-(add-hook 'c-mode-common-hook 'my-cc-common-setup)
+;; (defun my-cc-common-setup ()
+;;   (setq c-auto-newline nil
+;;         c-basic-offset 2
+;;         c-electric-pound-behavior '(alignleft)
+;;         dabbrev-case-replace nil
+;;         fill-column 80
+;;         indent-tabs-mode nil
+;;         )
+;;   (c-setup-filladapt)
+;;   (define-key c-mode-base-map "\C-m" `c-context-line-break)
+;;   (define-key c-mode-base-map "\C-c\C-u" 'uncomment-region))
+;; (add-hook 'c-mode-common-hook 'my-cc-common-setup)
 
 ;; java
 
 ;;;(require 'dabbrev)
-(define-abbrev-table 'java-mode-abbrev-table
-  '(("sop" "System.out.println" nil 1)
-    ("sof" "System.out.flush" nil 1)
-    ("sep" "System.err.println" nil 1)
-    ("ctm" "System.currentTimeMillis" nil 1)
-    ("sac" "System.arraycopy" nil 1)
-    ("ija" "import java.awt.*")
-    ("iji" "import java.io.*")
-    ("ijn" "import java.net.*")
-    ("ijt" "import java.text.*")
-    ("iju" "import java.util.*")
-    ("cch" "/**
- *
- *
- * @author
- * @version     %\111%, %\107%
- */" java-class-comment-hook 0)
-    ("mch" "/**
- *
- */" nil 0)
-    ))
+;; (define-abbrev-table 'java-mode-abbrev-table
+;;   '(("sop" "System.out.println" nil 1)
+;;     ("sof" "System.out.flush" nil 1)
+;;     ("sep" "System.err.println" nil 1)
+;;     ("ctm" "System.currentTimeMillis" nil 1)
+;;     ("sac" "System.arraycopy" nil 1)
+;;     ("ija" "import java.awt.*")
+;;     ("iji" "import java.io.*")
+;;     ("ijn" "import java.net.*")
+;;     ("ijt" "import java.text.*")
+;;     ("iju" "import java.util.*")
+;;     ("cch" "/**
+;;  *
+;;  *
+;;  * @author
+;;  * @version     %\111%, %\107%
+;;  */" java-class-comment-hook 0)
+;;     ("mch" "/**
+;;  *
+;;  */" nil 0)
+;;     ))
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(("sop" "printf" nil 1)
-    ("cch" "/**
- *
- *
- * @author
- * @version     %\111%, %\107%
- */" java-class-comment-hook 0)
-    ("mch" "/**
- *
- */" nil 0)
-    ))
+;; (define-abbrev-table 'c++-mode-abbrev-table
+;;   '(("sop" "printf" nil 1)
+;;     ("cch" "/**
+;;  *
+;;  *
+;;  * @author
+;;  * @version     %\111%, %\107%
+;;  */" java-class-comment-hook 0)
+;;     ("mch" "/**
+;;  *
+;;  */" nil 0)
+;;     ))
 
-(setq c-mode-abbrev-table c++-mode-abbrev-table)
+;; (setq c-mode-abbrev-table c++-mode-abbrev-table)
 
-(defun java-class-comment-hook ()
-  (save-excursion
-    (let ((username (getenv "FULLUSERNAME"))
-          )
-      (when (not (null username))
-        (forward-line -2)
-        (end-of-line)
-        (insert username))))
-  )
+;; (defun java-class-comment-hook ()
+;;   (save-excursion
+;;     (let ((username (getenv "FULLUSERNAME"))
+;;           )
+;;       (when (not (null username))
+;;         (forward-line -2)
+;;         (end-of-line)
+;;         (insert username))))
+;;   )
 
-(defun copyright-comment-hook ()
-  (let ((username (or (getenv "FULLUSERNAME") (getenv "USER") (getenv "USERNAME")))
-        (filename (file-name-nondirectory (buffer-file-name)))
-        )
-    (if (not (null username))
-        (save-excursion
-          (search-backward "Author: ")
-          (end-of-line)
-          (insert username)))
-    (if (not (null filename))
-        (save-excursion
-          (search-backward "File: ")
-          (end-of-line)
-          (insert filename)))))
+;; (defun copyright-comment-hook ()
+;;   (let ((username (or (getenv "FULLUSERNAME") (getenv "USER") (getenv "USERNAME")))
+;;         (filename (file-name-nondirectory (buffer-file-name)))
+;;         )
+;;     (if (not (null username))
+;;         (save-excursion
+;;           (search-backward "Author: ")
+;;           (end-of-line)
+;;           (insert username)))
+;;     (if (not (null filename))
+;;         (save-excursion
+;;           (search-backward "File: ")
+;;           (end-of-line)
+;;           (insert filename)))))
 
-;; jdok
-(eval-when-compile (require 'jdok))
-(defun my-jdok-setup ()
-  (jdok-define-template 'jdok-author-tag-template '("* @author\t" (getenv "FULLUSERNAME")))
+;; ;; jdok
+;; (eval-when-compile (require 'jdok))
+;; (defun my-jdok-setup ()
+;;   (jdok-define-template 'jdok-author-tag-template '("* @author\t" (getenv "FULLUSERNAME")))
 
-  (jdok-define-template 'jdok-since-tag-template nil)
-  (jdok-define-template 'jdok-version-tag-template '("* @version\t%\111%, %\107%"))
-  (defun jdok-insert-see-tag (ref)))
-(add-hook 'jdok-load-hook 'my-jdok-setup)
-(autoload 'jdok-generate-javadoc-template "jdok" "jdok" t)
+;;   (jdok-define-template 'jdok-since-tag-template nil)
+;;   (jdok-define-template 'jdok-version-tag-template '("* @version\t%\111%, %\107%"))
+;;   (defun jdok-insert-see-tag (ref)))
+;; (add-hook 'jdok-load-hook 'my-jdok-setup)
+;; (autoload 'jdok-generate-javadoc-template "jdok" "jdok" t)
 
-(defun my-java-setup ()
-  (abbrev-mode 1)
-  (c-add-style
-   "amd-java"
-   '((c-offsets-alist . ((arglist-intro . +)
-                         (access-label . 0)
-                         (case-label . *)
-                         (statement-case-intro . *)
-                         (substatement-open . 0)
-                         (inline-open . 0)
-                         (block-open - 0)
-                         )))
-   t)
-  (setq tab-width 2
-        c-basic-offset 2)
-)
-(add-hook 'java-mode-hook 'my-java-setup)
+;; (defun my-java-setup ()
+;;   (abbrev-mode 1)
+;;   (c-add-style
+;;    "amd-java"
+;;    '((c-offsets-alist . ((arglist-intro . +)
+;;                          (access-label . 0)
+;;                          (case-label . *)
+;;                          (statement-case-intro . *)
+;;                          (substatement-open . 0)
+;;                          (inline-open . 0)
+;;                          (block-open - 0)
+;;                          )))
+;;    t)
+;;   (setq tab-width 2
+;;         c-basic-offset 2)
+;; )
+;; (add-hook 'java-mode-hook 'my-java-setup)
 
-(defun jad-buffer ()
-  "Runs jad.exe on the current buffer, which is presumably a .class file."
-  (interactive)
-  (let ((tmp (make-temp-file "jad.class"))
-        (buf (get-empty-buffer "*jad*")))
-    (write-region (point-min) (point-max) tmp nil nil)
-    (call-process "jad.exe" nil buf t "-p" tmp)
-    (delete-file tmp)
-    (switch-to-buffer buf)
-    (goto-char (point-min))
-    (java-mode)))
+;; (defun jad-buffer ()
+;;   "Runs jad.exe on the current buffer, which is presumably a .class file."
+;;   (interactive)
+;;   (let ((tmp (make-temp-file "jad.class"))
+;;         (buf (get-empty-buffer "*jad*")))
+;;     (write-region (point-min) (point-max) tmp nil nil)
+;;     (call-process "jad.exe" nil buf t "-p" tmp)
+;;     (delete-file tmp)
+;;     (switch-to-buffer buf)
+;;     (goto-char (point-min))
+;;     (java-mode)))
 
-;; cc
+;; ;; cc
 
-(defun my-cc-setup ()
-  (c-add-style
-   "amd"
-   '((c-comment-only-line-offset . (0 . 0))
-     (c-offsets-alist . ((statement-block-intro . +)
-                         (knr-argdecl-intro . 5)
-                         (substatement-open . 0)
-                         (label . 0)
-                         (statement-case-open . 0)
-                         (statement-cont . +)
-                         (arglist-close . c-lineup-arglist)
-                         (arglist-intro . +)
-                         (access-label . -)
-                         (case-label . +)
-                         (statement-case-intro . +)
-                         (inline-open . 0)
-                         )))
-   t)
-  )
-(add-hook 'c++-mode-hook 'my-cc-setup)
+;; (defun my-cc-setup ()
+;;   (c-add-style
+;;    "amd"
+;;    '((c-comment-only-line-offset . (0 . 0))
+;;      (c-offsets-alist . ((statement-block-intro . +)
+;;                          (knr-argdecl-intro . 5)
+;;                          (substatement-open . 0)
+;;                          (label . 0)
+;;                          (statement-case-open . 0)
+;;                          (statement-cont . +)
+;;                          (arglist-close . c-lineup-arglist)
+;;                          (arglist-intro . +)
+;;                          (access-label . -)
+;;                          (case-label . +)
+;;                          (statement-case-intro . +)
+;;                          (inline-open . 0)
+;;                          )))
+;;    t)
+;;   )
+;; (add-hook 'c++-mode-hook 'my-cc-setup)
 
 (add-to-list 'auto-mode-alist '("\\.\\(c\\|h\\|cpp\\|uc\\)$" . c++-mode))
 (add-to-list 'auto-mode-alist '("/\\(MAP\\|VECTOR\\|LIST\\|XTREE\\|XMEMORY\\|FUNCTIONAL\\)$" . c++-mode))
@@ -242,27 +242,28 @@ functions from one source file."
 ;; objc
 
 (add-to-list 'auto-mode-alist '("\\.h$" . objc-mode))
-(defun my-objc-setup ()
-  (abbrev-mode 1)
-  (c-add-style
-   "amd-objc"
-   '((c-offsets-alist . ((arglist-intro . +)
-                         (access-label . 0)
-                         (case-label . *)
-                         (statement-case-intro . *)
-                         (substatement-open . 0)
-                         (inline-open . 0)
-                         (block-open - 0)
-                         )))
-   t))
-(add-hook 'objc-mode-hook 'my-objc-setup)
+
+;; (defun my-objc-setup ()
+;;   (abbrev-mode 1)
+;;   (c-add-style
+;;    "amd-objc"
+;;    '((c-offsets-alist . ((arglist-intro . +)
+;;                          (access-label . 0)
+;;                          (case-label . *)
+;;                          (statement-case-intro . *)
+;;                          (substatement-open . 0)
+;;                          (inline-open . 0)
+;;                          (block-open - 0)
+;;                          )))
+;;    t))
+;; (add-hook 'objc-mode-hook 'my-objc-setup)
 
 
-;; bah - remove c-mode entirely! We have to do it this way because it's
-;; in autoloads
-(defun adjust-autoloads ()
-  (delete '("\\.[ch]\\'" . c-mode) auto-mode-alist))
-(add-hook 'after-init-hook 'adjust-autoloads)
+;; ;; bah - remove c-mode entirely! We have to do it this way because it's
+;; ;; in autoloads
+;; (defun adjust-autoloads ()
+;;   (delete '("\\.[ch]\\'" . c-mode) auto-mode-alist))
+;; (add-hook 'after-init-hook 'adjust-autoloads)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; c#
@@ -271,57 +272,57 @@ functions from one source file."
 (add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
 
 ;; amd - are these still used?
-(eval-after-load "compile"
-  '(progn
-     (add-to-list 'compilation-error-regexp-alist
-                  '("\\(\\([a-zA-Z]:\\)?[^:(\t\n]+\\)(\\([0-9]+\\)[,]\\([0-9]+\\)): \\(error\\|warning\\) CS[0-9]+:" 1 3 4))
-     (add-to-list 'compilation-error-regexp-alist
-                  '("^\\s-*\\[[^]]*\\]\\s-*\\(.+\\):\\([0-9]+\\):" 1 2))))
+;; (eval-after-load "compile"
+;;   '(progn
+;;      (add-to-list 'compilation-error-regexp-alist
+;;                   '("\\(\\([a-zA-Z]:\\)?[^:(\t\n]+\\)(\\([0-9]+\\)[,]\\([0-9]+\\)): \\(error\\|warning\\) CS[0-9]+:" 1 3 4))
+;;      (add-to-list 'compilation-error-regexp-alist
+;;                   '("^\\s-*\\[[^]]*\\]\\s-*\\(.+\\):\\([0-9]+\\):" 1 2))))
 
-(defun my-csharp-setup ()
-  (c-add-style
-   "amd-csharp"
-   '((c-comment-only-line-offset . (0 . 0))
-     (c-offsets-alist . (
-                         (c . c-lineup-C-comments)
-                         (inclass . 0)
-                         (namespace-open . +)
-                         (namespace-close . +)
-                         (innamespace . 0)
-                         (class-open . 0)
-                         (class-close . 0)
-                         (inclass . +)
-                         (defun-open . 0)
-                         (defun-block-intro . +)
-                         (inline-open . 0)
-                         (statement-block-intro . 0)
-                         (brace-list-intro . +)
-                         (substatement-open . 0)
-                         (statement-block-intro . +)
-                         (case-label . +)
-                         (block-open - 0)
-                         )))
-   t)
-  )
-(add-hook 'csharp-mode-hook 'my-csharp-setup)
+;; (defun my-csharp-setup ()
+;;   (c-add-style
+;;    "amd-csharp"
+;;    '((c-comment-only-line-offset . (0 . 0))
+;;      (c-offsets-alist . (
+;;                          (c . c-lineup-C-comments)
+;;                          (inclass . 0)
+;;                          (namespace-open . +)
+;;                          (namespace-close . +)
+;;                          (innamespace . 0)
+;;                          (class-open . 0)
+;;                          (class-close . 0)
+;;                          (inclass . +)
+;;                          (defun-open . 0)
+;;                          (defun-block-intro . +)
+;;                          (inline-open . 0)
+;;                          (statement-block-intro . 0)
+;;                          (brace-list-intro . +)
+;;                          (substatement-open . 0)
+;;                          (statement-block-intro . +)
+;;                          (case-label . +)
+;;                          (block-open - 0)
+;;                          )))
+;;    t)
+;;   )
+;; (add-hook 'csharp-mode-hook 'my-csharp-setup)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; text
 
-(defun my-text-setup ()
-  (turn-on-auto-fill)
-  (if (eq indent-line-function 'indent-to-left-margin)
-      (setq indent-line-function 'indent-relative-maybe)))
-(add-hook 'text-mode-hook 'my-text-setup)
+;; (defun my-text-setup ()
+;;   (turn-on-auto-fill)
+;;   (if (eq indent-line-function 'indent-to-left-margin)
+;;       (setq indent-line-function 'indent-relative-maybe)))
+;; (add-hook 'text-mode-hook 'my-text-setup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; perl
 
-(eval-when-compile (require 'perl-mode))
-(defun my-perl-setup ()
-  (setq tab-width 2))
-(add-hook 'perl-mode-hook 'my-perl-setup)
+;; (eval-when-compile (require 'perl-mode))
+;; (defun my-perl-setup ()
+;;   (setq tab-width 2))
+;; (add-hook 'perl-mode-hook 'my-perl-setup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; python
