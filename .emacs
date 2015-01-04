@@ -11,8 +11,7 @@
       (load (format "%s/package" AMDELISP))
       (load (path-with-home ".emacs.d/cl-lib/cl-lib"))
       (setq required-packages
-            '(clojure-mode
-              haskell-mode
+            '(haskell-mode
               magit
               mmm-mode
               oauth2
