@@ -16,7 +16,8 @@
               mmm-mode
               oauth2
               org
-              paredit)))
+              paredit
+              protobuf-mode)))
   ;; emacs 24+
   (progn
     (require 'package)
@@ -31,7 +32,9 @@
             oauth2
             org
             paredit
-            ruby-electric))))
+            protobuf-mode
+            ruby-electric
+            swift-mode))))
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
