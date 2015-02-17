@@ -74,6 +74,8 @@ esac
 # Oh my, colors!
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 if [[ $PLATFORM == 'osx' ]];
+   echo "running CURL_CA_BUNDLE hack :("
+   export CURL_CA_BUNDLE=/usr/local/etc/openssl/cert.pem
 then
     alias ls="ls -lG"
 else
@@ -201,3 +203,4 @@ then
 fi # added by Nix installer
 
 export HISTFILESIZE=10000
+export PKG_CONFIG_PATH=~/.nix-profile/lib/pkgconfig:/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
