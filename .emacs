@@ -359,6 +359,7 @@
 (custom-set-variables
  '(haskell-mode-hook '(turn-on-haskell-indentation)))
 
+(setq magit-last-seen-setup-instructions "1.4.0")
 (require 'magit)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
