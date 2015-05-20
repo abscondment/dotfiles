@@ -87,6 +87,7 @@
 (add-hook 'find-file-hooks 'turn-off-auto-revert-hook)
 
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; random settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -188,6 +189,9 @@
 
 (global-set-key-override0 "\t" 'clever-hippie-tab)
 (global-set-key-override "\t" 'clever-nxml-tab 'nxml-mode)
+
+(add-hook 'nxml-mode 'hexcolour-add-to-font-lock)
+
 
 (autoload 'awk-mode "cc-mode" nil t)
 
