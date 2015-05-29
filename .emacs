@@ -24,6 +24,7 @@
     (require 'cl-lib)
     (setq required-packages
           '(clojure-mode
+            gradle-mode
             haskell-mode
             haml-mode
             js2-mode
