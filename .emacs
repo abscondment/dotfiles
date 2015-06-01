@@ -25,6 +25,7 @@
     (setq required-packages
           '(clojure-mode
             gradle-mode
+            groovy-mode
             haskell-mode
             haml-mode
             js2-mode
@@ -266,6 +267,9 @@
       (concatenate 'list
                    auto-mode-alist
                    '(
+                     ("\\.bucklet" . python-mode)
+                     ("\\.gradle" . groovy-mode)
+                     ("\\.gradle" . gradle-mode)
                      ("\\.markdown" . markdown-mode)
                      ("\\.md" . markdown-mode)
                      ("\\.mirah" . ruby-mode)

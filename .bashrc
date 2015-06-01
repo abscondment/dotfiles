@@ -187,6 +187,8 @@ export MAHOUT_HOME="$HOME/code/mahout"
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$PATH:$HOME/code/foss-clones/buck/bin"
+
 if [[ $(type -t rbenv) ]] ;
 then
   eval "$(rbenv init -)"
