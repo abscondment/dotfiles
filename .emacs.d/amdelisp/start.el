@@ -21,7 +21,6 @@
 (when window-system (load "window"))
 (when (file-exists-p "company.el") (load "company"))
 (load "prefs")
-(load (format "%s/lisp/loaddefs" AMDELISP))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Inhibit-startup-message is reset to nil right after this file

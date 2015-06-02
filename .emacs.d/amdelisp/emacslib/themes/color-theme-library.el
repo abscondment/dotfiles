@@ -5720,7 +5720,6 @@ vhdl, viper, w3m, widget, woman, x-symbol, xref."
     (modeline-mousable-minor-mode ((t (:bold t :background "Gray80" :foreground "green4"))))
     (my-tab-face ((t (nil))))
     (nil ((t (nil))))
-    (p4-diff-del-face ((t (:bold t))))
     (paren-blink-off ((t (:foreground "gray80"))))
     (paren-face ((t (nil))))
     (paren-face-match ((t (nil))))
@@ -7757,10 +7756,10 @@ This builds on `color-theme-jsc-light'."
 
 (defun color-theme-kingsajz ()
   "Color theme by Olgierd \"Kingsajz\" Ziolko, created 2001-12-04.
-Another theme with wheat on DarkSlatGrey. Based on Subtle Hacker. 
-Used on Emacs 21.1 @ WinMe. Not tested on any other systems. 
+Another theme with wheat on DarkSlatGrey. Based on Subtle Hacker.
+Used on Emacs 21.1 @ WinMe. Not tested on any other systems.
 
-Some faces uses Andale mono font (nice fixed-width font). 
+Some faces uses Andale mono font (nice fixed-width font).
 It is available at:  http://www.microsoft.com/typography/downloads/andale32.exe
 
 Hail Eris! All hail Discordia!"
@@ -8406,14 +8405,6 @@ A pastelly-mac like color-theme."
      (modeline-buffer-id ((t (:background "DarkRed" :foreground "white"))))
      (modeline-mousable ((t (:background "DarkRed" :foreground "white"))))
      (modeline-mousable-minor-mode ((t (:background "DarkRed" :foreground "white"))))
-     (p4-depot-added-face ((t (:foreground "blue"))))
-     (p4-depot-deleted-face ((t (:foreground "red"))))
-     (p4-depot-unmapped-face ((t (:foreground "grey30"))))
-     (p4-diff-change-face ((t (:foreground "dark green"))))
-     (p4-diff-del-face ((t (:foreground "red"))))
-     (p4-diff-file-face ((t (:background "gray90"))))
-     (p4-diff-head-face ((t (:background "gray95"))))
-     (p4-diff-ins-face ((t (:foreground "blue"))))
      (pointer ((t (nil))))
      (primary-selection ((t (:background "blue"))))
      (red ((t (:foreground "red"))))
@@ -9347,7 +9338,7 @@ a large theme."
 
 (defun color-theme-blue-mood ()
   "Color theme by Nelson Loyola, created 2002-04-15.
-Includes cperl, custom, font-lock, p4, speedbar, widget."
+Includes cperl, custom, font-lock, speedbar, widget."
   (interactive)
   (color-theme-install
    '(color-theme-blue-mood
@@ -9413,14 +9404,6 @@ Includes cperl, custom, font-lock, p4, speedbar, widget."
      (modeline-mousable ((t (:background "goldenrod" :foreground "darkblue"))))
      (modeline-mousable-minor-mode ((t (:background "goldenrod" :foreground "darkblue"))))
      (my-tab-face ((t (:background "SlateBlue1"))))
-     (p4-depot-added-face ((t (:foreground "steelblue1"))))
-     (p4-depot-deleted-face ((t (:foreground "red"))))
-     (p4-depot-unmapped-face ((t (:foreground "grey90"))))
-     (p4-diff-change-face ((t (:foreground "dark green"))))
-     (p4-diff-del-face ((t (:bold t :foreground "salmon"))))
-     (p4-diff-file-face ((t (:background "blue"))))
-     (p4-diff-head-face ((t (:background "blue"))))
-     (p4-diff-ins-face ((t (:foreground "steelblue1"))))
      (paren-blink-off ((t (:foreground "DodgerBlue4"))))
      (paren-match ((t (:background "red" :foreground "yellow"))))
      (paren-mismatch ((t (:background "DeepPink"))))
@@ -9667,7 +9650,6 @@ A white smoke on blue color theme."
      (modeline-mousable-minor-mode ((t (:foreground "white" :background "#001040"))))
      (mouse ((t (:background "white"))))
      (my-tab-face ((t (:background "SlateBlue1"))))
-     (p4-diff-del-face ((t (:bold t :foreground "salmon" :weight bold))))
      (primary-selection ((t (:background "gray91" :foreground "DodgerBlue4"))))
      (region ((t (:background "gray91" :foreground "DodgerBlue4"))))
      (scroll-bar ((t (:background "grey75"))))
@@ -11280,7 +11262,7 @@ Bonus: do not use 3D modeline."
      (zmacs-region ((t (:background "gray65")))))))
 
 (defun color-theme-emacs-nw ()
-  "Follow emacs21's color-theme, with -nw getting 100% compatibility. 
+  "Follow emacs21's color-theme, with -nw getting 100% compatibility.
 
 Alex's `color-theme-emacs-21' follows emacs21's theme, but in the
 current scheme of things, that means that when it works on X, it won't
@@ -11290,7 +11272,7 @@ there are multiple windows.
 
 OTOH, `color-theme-emacs-nw' follows emacs21's theme but the goal is
 100% -nw compatibility, and in X; we shall try for decent color
-scheme, and as much compability default emacs21's X as possble. 
+scheme, and as much compability default emacs21's X as possble.
 Bugs to deego@gnufans.org.
 
 TODO: Try to make this theme relative to color-theme-emacs-21 rather
@@ -13222,7 +13204,6 @@ bold))))
      (my-tab-face ((t (nil))))
      (nil ((t (nil))))
      (overlay-empty-face ((t (nil))))
-     (p4-diff-del-face ((t (nil))))
      (paren-blink-off ((t (nil))))
      (paren-face ((t (nil))))
      (paren-face-match ((t (nil))))

@@ -4,12 +4,11 @@
 ;;;
 
 ;; you probably don't care about these
-(setq PC-word-delimiters "-_.=")
 (setq auto-revert-interval 2)
 (setq auto-save-list-file-prefix nil)
 (setq backup-by-copying t)
-(setq default-major-mode 'text-mode)
-(setq default-tab-width 4)
+(setq major-mode 'text-mode)
+(setq tab-width 4)
 (setq-default c-basic-offset 2)
 ;;(setq display-time-format "%a %b %e %l:%M\%p ")
 (setq display-time-format nil)
@@ -41,11 +40,6 @@
 (setq line-number-mode t)
 ;;(setq printer-name nil)
 (setq require-final-newline nil)
-
-;; turn off p4-check-mode unless absolutely necessary. it really hammers
-;; the server.
-(setq p4-do-find-file nil)
-(setq p4-file-refresh-timer-time 0)
 
 (set-default 'indent-tabs-mode nil)
 (set-default 'tab-width 4)
@@ -114,14 +108,6 @@
 (global-set-key "\C-x\C-f"  'find-file)
 (global-set-key "\C-xs"     'save-buffer)
 (global-set-key "\C-x\C-s"  'save-buffer)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; p4/csc
-
-;;(global-set-key [f1]      'p4-edit)
-(global-set-key [f3]        'svn-diff)
-;;(global-set-key "\C-xp"         'p4-prefix-map)
-;;(global-set-key "\C-x\C-q"      'p4-toggle-read-only)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; compilation

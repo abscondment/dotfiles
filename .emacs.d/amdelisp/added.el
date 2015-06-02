@@ -19,7 +19,7 @@
   (let ((parent (file-name-directory path)))
     (if (null parent) ""
       (substring parent 0 (1- (length parent))))))
-  
+
 (defun find-in-path (path name)
   (cond ((or (= (length path) 0)
              (string-match "^[a-zA-Z]:$" path))
@@ -101,11 +101,11 @@
   (setq tags-stack (cons el tags-stack)))
 
 (defun tags-stack-pop ()
-  (let ((el (car tags-stack)))    
+  (let ((el (car tags-stack)))
     (setq tags-stack (cdr tags-stack))
     el))
 
-(defadvice find-tag-noselect (before push-tag activate)  
+(defadvice find-tag-noselect (before push-tag activate)
   (or (ad-get-arg 1)
       (tags-stack-push (cons (current-buffer) (point)))))
 
@@ -113,9 +113,9 @@
   (tags-stack-push (cons (current-buffer) (point))))
 
 (defun tags-return ()
-  "Pop to the spot we were at before looking up the last tag."  
-  (interactive) 
-  (let* ((el (tags-stack-pop))  
+  "Pop to the spot we were at before looking up the last tag."
+  (interactive)
+  (let* ((el (tags-stack-pop))
          (buffer (car el))
          (point  (cdr el)))
     (if buffer (switch-to-buffer buffer))
@@ -150,7 +150,7 @@
   (setq current-num (+ current-num 1)))
 
 (defun hungry-delete ()
-  "Delete character and consecutive whitespace before point"  
+  "Delete character and consecutive whitespace before point"
   (interactive "*")
   (let ((here (point)))
     (skip-chars-backward " \t")
@@ -167,7 +167,7 @@
         (delete-region (point) here))))
 
 (defun hungry-delete-forward ()
-  "Delete character and consecutive whitespace after point"  
+  "Delete character and consecutive whitespace after point"
   (interactive "*")
   (let ((here (point)))
     (skip-chars-forward " \t\n")
@@ -339,7 +339,7 @@
   (color-invert-face-part 'font-lock-comment-face)
   (color-invert-face-part 'font-lock-constant-face)
   (color-invert-face-part 'font-lock-function-name-face)
-  (color-invert-face-part 'font-lock-variable-name-face)  
+  (color-invert-face-part 'font-lock-variable-name-face)
   (color-invert-face-part 'font-lock-string-face)
   (color-invert-face-part 'font-lock-type-face))
 
@@ -365,7 +365,7 @@
     (/ (+ r g b) 3)))
 
 (defun color-invert (cstring)
-  (apply #'format "#%02x%02x%02x"  
+  (apply #'format "#%02x%02x%02x"
          (mapcar (lambda (x) (- 255 x))
                  (color-hex-to-rgb (color-lookup cstring)))))
 
@@ -387,7 +387,7 @@
 
 ;; Get an empty buffer with the specified name.
 (defun get-empty-buffer (name)
-  
+
   (let ((b (get-buffer-create name)))
     (save-excursion
       (set-buffer b)
@@ -418,26 +418,6 @@ ask first. LIST defaults to all existing live buffers."
              (revert-buffer t t)
              (message "Reverting file %s...done" (buffer-file-name buffer)))))
     (setq list (cdr list))))
-
-(defun p4-revert-some-buffers ()
-  "Finds all buffers that are not read-only but whose underlying files
-are, and automatically reverts them.  The user is consulted before
-reverting a buffer that is modified."
-  (interactive)
-  (save-excursion
-    (let ((buffers (buffer-list))
-          rbuffers b fname)
-      (while (not (null buffers))
-        (setq b (car buffers))
-        (setq buffers (cdr buffers))
-        (set-buffer b)
-        (setq fname (buffer-file-name))
-        (if (and (not buffer-read-only)
-                 (not (null fname))
-                 (not (file-writable-p fname)))
-            (push b rbuffers)))
-      (if (not (null rbuffers))
-          (revert-some-buffers rbuffers)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -497,8 +477,8 @@ reverting a buffer that is modified."
 (defun global-set-key-override (keys func &optional mode)
   (if (null mode)
       (global-set-key keys func))
-  (if (null mode) 
-      (global-set-key keys func)) 
+  (if (null mode)
+      (global-set-key keys func))
   (global-set-key-override0 keys func mode))
 
 (defun global-set-key-override0 (keys func &optional mode)
@@ -721,7 +701,7 @@ declarations."
             ;; amd - include type
             "\\([a-zA-Z0-9_]+\\)[ \t\n]*[*&]?[ \t\n]*\\([a-zA-Z0-9_]+\\)" ; type [*%] name
             ;;            "\\*?[ \t\n]*\\([a-zA-Z0-9_]+\\)"            ; opt. *, varname
-        
+
             "\\)"
             "[ \t\n]*"                  ; opt. spaces
             "\\(\\[[ \t\n]*[a-zA-Z0-9_]*[ \t\n]*\\]\\|" ; opt. array bounds
@@ -739,10 +719,10 @@ declarations."
 
             ;; amd - build list with type
             ((match-beginning 3)
-             (cons 
+             (cons
               (substring (car args-list) (match-beginning 3) (match-end 3))
               (substring (car args-list) (match-beginning 4) (match-end 4))))
-        
+
             ;; no match: return complete declaration
             (t
              (car args-list)))
@@ -892,7 +872,7 @@ and new-line characters cut off."
       (set-buffer (find-file-noselect autoloads-file))
       (rebuild-autoloads-dir source-directory)
       (message "rebuild-autoload : %s - Done." autoloads-file))))
- 
+
 (provide 'added)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

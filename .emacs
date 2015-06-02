@@ -65,10 +65,6 @@
 ;; modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; turn of p4-check-mode unless absolutely necessary
-(setq p4-file-refresh-timer-time 0
-      p4-do-find-file nil)
-
 ;; spelling
 (setq
  ispell-extra-args '("--mode=sgml")
