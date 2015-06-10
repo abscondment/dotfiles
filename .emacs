@@ -23,7 +23,8 @@
     (require 'package)
     (require 'cl-lib)
     (setq required-packages
-          '(clojure-mode
+          '(cider
+            clojure-mode
             gradle-mode
             groovy-mode
             haskell-mode

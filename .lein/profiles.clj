@@ -1,1 +1,1 @@
-{:user {:dependencies [[slamhound "1.5.0"]]}}
+{:user  {:plugins [[cider/cider-nrepl "0.8.2"]]}}
