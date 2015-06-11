@@ -163,7 +163,8 @@ portslay () {
 # GIT SECRETS
 source "$HOME/.secrets/git.bashrc"
 
-# AWS SECRETS
+# MOAR SECRETS
+source "$HOME/.secrets/chef/chef.bashrc"
 source "$HOME/.secrets/ec2/aws.bashrc"
 source "$HOME/.secrets/ec2/heroku.bashrc"
 source "$HOME/.secrets/ec2/perimeter.bashrc"
@@ -178,6 +179,7 @@ then
     export JAVA6_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
     export JAVA7_HOME="$(/usr/libexec/java_home)"
     export JAVA_HOME=$JAVA7_HOME
+    export SPARK_HOME="/usr/local/Cellar/$(readlink "$(which spark-shell)" | xargs dirname)/../libexec"
 fi
 
 # text stuff
