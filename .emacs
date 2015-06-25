@@ -39,6 +39,12 @@
             ruby-electric
             swift-mode))))
 
+(add-to-list 'exec-path
+             (format "%s/bin" (getenv "HOME")))
+
+(setenv "PATH" (concat (getenv "PATH")
+                       (format ":%s/bin" (getenv "HOME"))))
+
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
@@ -274,6 +280,7 @@
                      (".eye" . ruby-mode)
                      (".eye.j2" . ruby-mode)
                      ("Gemfile" . ruby-mode)
+                     ("Berksfile" . ruby-mode)
                      ("\\.org$" . org-mode))))
 
 ;; org-mode
