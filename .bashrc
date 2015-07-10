@@ -72,7 +72,7 @@ case "$TERM" in
 esac
 
 # Oh my, colors!
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] 👻  \$ '
 if [[ $PLATFORM == 'osx' ]];
    echo "running CURL_CA_BUNDLE hack :("
    export CURL_CA_BUNDLE=/usr/local/etc/openssl/cert.pem
