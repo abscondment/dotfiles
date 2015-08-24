@@ -5,6 +5,8 @@
 
 (defvar AMDELISP (format "%s/.emacs.d/amdelisp" (getenv "HOME")))
 
+(require 'package)
+
 (if (< emacs-major-version 24)
     ;; older
     (progn
@@ -20,11 +22,11 @@
               protobuf-mode)))
   ;; emacs 24+
   (progn
-    (require 'package)
     (require 'cl-lib)
     (setq required-packages
           '(cider
             clojure-mode
+            company-emoji
             gradle-mode
             groovy-mode
             haskell-mode
@@ -42,10 +44,15 @@
 (add-to-list 'exec-path
              (format "%s/bin" (getenv "HOME")))
 
+
 (setenv "PATH" (concat (getenv "PATH")
                        (format ":%s/bin" (getenv "HOME"))))
 
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
@@ -284,6 +291,9 @@
                      ("\\.org$" . org-mode))))
 
 ;; org-mode
+;; TODO: emoji?
+;; (add-hook 'org-mode-hook 'company-mode)
+;; (add-hook 'org-mode-hook 'company-emoji-init)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cb" 'org-iswitchb)
