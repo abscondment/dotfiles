@@ -378,6 +378,12 @@
 (setq nrepl-popup-stacktraces nil)
 
 (add-hook 'java-mode-hook (lambda () (setq c-basic-offset 2)))
+(defun my-javascript-mode-hook ()
+  (setq indent-tabs-mode nil
+        c-basic-offset 2
+        js-indent-level 2))
+(add-hook 'javascript-mode-hook 'my-javascript-mode-hook)
+
 
 (custom-set-variables
  '(haskell-mode-hook '(turn-on-haskell-indentation)))
