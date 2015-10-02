@@ -213,3 +213,5 @@ export PKG_CONFIG_PATH=~/.nix-profile/lib/pkgconfig:/usr/local/lib/pkgconfig:$PK
 export PATH=/Users/brendan/torch/install/bin:$PATH  # Added automatically by torch-dist
 export LD_LIBRARY_PATH=/Users/brendan/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
 export DYLD_LIBRARY_PATH=/Users/brendan/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
+
+export PGUSER=postgres
