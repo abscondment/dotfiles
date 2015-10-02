@@ -184,7 +184,10 @@ fi
 
 # text stuff
 export TT_HOME="$HOME/code/tamingtext-book"
-export MAHOUT_HOME="$HOME/code/mahout"
+export MAHOUT_HOME="$HOME/code/foss-clones/mahout"
+export MAHOUT_CONF_DIR="$MAHOUT_HOME/conf"
+export MAHOUT_LOCAL="true"
+
 
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
