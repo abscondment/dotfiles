@@ -74,9 +74,12 @@ esac
 # Oh my, colors!
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] 👻  \$ '
 if [[ $PLATFORM == 'osx' ]];
-   echo "running CURL_CA_BUNDLE hack :("
-   export CURL_CA_BUNDLE=/usr/local/etc/openssl/cert.pem
 then
+    # if [ "$PS1" ]; then
+    #     # only echo when interactive
+    #     echo "running CURL_CA_BUNDLE hack :("
+    # fi
+    export CURL_CA_BUNDLE=/usr/local/etc/openssl/cert.pem
     alias ls="ls -lG"
 else
     alias ls="ls -lG --color=auto"
@@ -136,24 +139,24 @@ export EDITOR=emacs
 
 # ssh-agent
 # start agent and set environment variables, if needed
-test -r ~/.agent && . ~/.agent
+test -r ~/.agent && . ~/.agent > /dev/null 2>&1
 ssh-add -l > /dev/null 2>&1
-test ${?} = 2 && ssh-agent -s > ~/.agent
+test ${?} = 2 && ssh-agent -s > ~/.agent 2>/dev/null
 ##
 ## Add keys to forward:
 if [ -d ~/.ssh/id_madronalabs ];
 then
-    ssh-add ~/.ssh/id_madronalabs
+    ssh-add ~/.ssh/id_madronalabs > /dev/null 2>&1
 fi
 ls -x1 ~/.ssh/id_* | grep -v '.pub$' | while read k
 do
-    ssh-add $k
+    ssh-add $k > /dev/null 2>&1
 done
 ##
 ##
-ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock
+ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock > /dev/null 2>&1
 ssh-add -l > /dev/null 2>&1
-test $? = 1 && ssh-add
+test $? = 1 && ssh-add > /dev/null 2>&1
 
 portslay () {
    # portslay:  kill the task active on the specified TCP port
