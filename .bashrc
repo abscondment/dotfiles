@@ -209,11 +209,12 @@ export PATH="/usr/local/heroku/bin:$PATH"
 if [ -e /Users/brendan/.nix-profile/etc/profile.d/nix.sh ]
 then
     . /Users/brendan/.nix-profile/etc/profile.d/nix.sh
-    export NIXPKGS=/Users/brendan/code/foss-clones/nixpkgs
 fi # added by Nix installer
 
 export HISTFILESIZE=10000
-export PKG_CONFIG_PATH=~/.nix-profile/lib/pkgconfig:/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
+
+# TODO: what was this even for
+# export PKG_CONFIG_PATH=~/.nix-profile/lib/pkgconfig:/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
 
 
 export PATH=/Users/brendan/torch/install/bin:$PATH  # Added automatically by torch-dist
