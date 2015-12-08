@@ -31,6 +31,8 @@
             groovy-mode
             haskell-mode
             haml-mode
+            flycheck-haskell
+            shakespeare-mode
             js2-mode
             magit
             mmm-mode
@@ -386,18 +388,28 @@
 
 
 (custom-set-variables
- '(haskell-mode-hook '(turn-on-haskell-indentation)))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(haskell-mode-hook (quote (turn-on-haskell-indentation)) t)
+ '(magit-status-buffer-switch-function (quote pop-to-buffer))
+ '(safe-local-variable-values
+   (quote
+    ((haskell-indent-spaces . 4)
+     (haskell-indent-spaces . 2)
+     (haskell-process-use-ghci . t)
+     (hamlet/basic-offset . 2)))))
+
+(require 'shakespeare-mode)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
 
 (setq magit-last-seen-setup-instructions "1.4.0")
 (require 'magit)
 (setq magit-push-always-verify nil)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(magit-status-buffer-switch-function (quote pop-to-buffer)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
