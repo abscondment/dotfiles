@@ -170,7 +170,8 @@ source "$HOME/.secrets/git.bashrc"
 source "$HOME/.secrets/chef/chef.bashrc"
 source "$HOME/.secrets/ec2/aws.bashrc"
 source "$HOME/.secrets/ec2/heroku.bashrc"
-source "$HOME/.secrets/ec2/replyyes.bashrc"
+#source "$HOME/.secrets/ec2/replyyes.bashrc"
+source "$HOME/.secrets/ec2/admora.bashrc"
 
 #export ANDROID_HOME="/usr/local/Cellar/android-sdk/r18"
 export ANDROID_HOME="/usr/local/opt/android-sdk"
@@ -221,4 +222,4 @@ export PATH=/Users/brendan/torch/install/bin:$PATH  # Added automatically by tor
 export LD_LIBRARY_PATH=/Users/brendan/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
 export DYLD_LIBRARY_PATH=/Users/brendan/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
 
-export PGUSER=postgres
+export PGUSER="$(whoami)"
