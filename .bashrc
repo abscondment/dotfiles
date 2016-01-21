@@ -175,7 +175,7 @@ source "$HOME/.secrets/ec2/admora.bashrc"
 
 #export ANDROID_HOME="/usr/local/Cellar/android-sdk/r18"
 export ANDROID_HOME="/usr/local/opt/android-sdk"
-export PATH="$ANDROID_HOME/bin:$ANDROID_HOME/platform-tools:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/bin"
+export PATH="$ANDROID_HOME/bin:$ANDROID_HOME/platform-tools:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/bin"
 
 
 if [[ $PLATFORM == 'osx' ]];
@@ -193,6 +193,7 @@ export MAHOUT_CONF_DIR="$MAHOUT_HOME/conf"
 export MAHOUT_LOCAL="true"
 
 
+# NB: this breaks if we have multiple python environments from nix
 #export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -224,3 +225,9 @@ export LD_LIBRARY_PATH=/Users/brendan/torch/install/lib:$LD_LIBRARY_PATH  # Adde
 export DYLD_LIBRARY_PATH=/Users/brendan/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
 
 export PGUSER="$(whoami)"
+
+PATH="/Users/brendan/perl5/bin${PATH+:}${PATH}"; export PATH;
+PERL5LIB="/Users/brendan/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/brendan/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/brendan/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/brendan/perl5"; export PERL_MM_OPT;
