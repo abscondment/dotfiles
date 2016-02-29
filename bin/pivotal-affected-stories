@@ -4,8 +4,14 @@ BRANCH="${BRANCH:-$(git rev-parse --abbrev-ref HEAD)}"
 START_BRANCH="${START_BRANCH:-development}"
 NEW_STATE="${NEW_STATE:-Delivers}"
 
-echo "Pivotal stories changed between $BRANCH and $START_BRANCH"
-echo "---------------------------------------------------------"
+msg="Pivotal stories changed between '$BRANCH' and '$START_BRANCH'"
+msgl=$(echo $msg | awk '{ print length($0); }')
+echo $msg
+for ((i=1; i<=$msgl; i++))
+do
+    echo -n "-"
+done
+echo
 echo
 
 function find_stories {
