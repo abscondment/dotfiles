@@ -1,0 +1,18 @@
+#!/bin/bash
+
+BRANCH="${BRANCH:-$(git rev-parse --abbrev-ref HEAD)}"
+START_BRANCH="${START_BRANCH:-development}"
+NEW_STATE="${NEW_STATE:-Delivered}"
+
+echo "Pivotal stories changed between $BRANCH and $START_BRANCH"
+echo "---------------------------------------------------------"
+echo
+
+function find_stories {
+    git log "$START_BRANCH".."$BRANCH" | grep -o '\[[^\]*#[0-9]*]' | grep -o '#[0-9]*' | sort | uniq
+}
+
+find_stories | while read id;
+do
+    echo "[$NEW_STATE $id]"
+done
