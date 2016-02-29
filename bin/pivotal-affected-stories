@@ -2,7 +2,7 @@
 
 BRANCH="${BRANCH:-$(git rev-parse --abbrev-ref HEAD)}"
 START_BRANCH="${START_BRANCH:-development}"
-NEW_STATE="${NEW_STATE:-Delivered}"
+NEW_STATE="${NEW_STATE:-Delivers}"
 
 echo "Pivotal stories changed between $BRANCH and $START_BRANCH"
 echo "---------------------------------------------------------"
