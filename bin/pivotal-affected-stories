@@ -1,10 +1,17 @@
 #!/bin/bash
 
 BRANCH="${BRANCH:-$(git rev-parse --abbrev-ref HEAD)}"
-START_BRANCH="${START_BRANCH:-development}"
+START_BRANCH="${START_BRANCH:-origin/development}"
 NEW_STATE="${NEW_STATE:-Delivers}"
+ONLY_FINISHED="#{ONLY_FINISHED:-$true}"
 
-msg="Pivotal stories changed between '$BRANCH' and '$START_BRANCH'"
+if [ $ONLY_FINISHED ];
+then
+    msg="Pivotal stories FINISHED between '$BRANCH' and '$START_BRANCH'"
+else
+    msg="Pivotal stories changed between '$BRANCH' and '$START_BRANCH'"
+fi
+
 msgl=$(echo $msg | awk '{ print length($0); }')
 echo $msg
 for ((i=1; i<=$msgl; i++))
@@ -15,7 +22,20 @@ echo
 echo
 
 function find_stories {
-    git log "$START_BRANCH".."$BRANCH" | grep -o '\[[^\]*#[0-9]*]' | grep -o '#[0-9]*' | sort | uniq
+    if [ $ONLY_FINISHED ];
+    then
+        git log "$START_BRANCH".."$BRANCH" | \
+            grep -i -oE '\[(fix|finish|close)[^ ]* #[0-9]*]' | \
+            grep -o '#[0-9]*' | \
+            sort | \
+            uniq
+    else
+        git log "$START_BRANCH".."$BRANCH" | \
+            grep -oE '\[[^ ]* #[0-9]*]' | \
+            grep -o '#[0-9]*' | \
+            sort | \
+            uniq
+    fi
 }
 
 find_stories | while read id;
