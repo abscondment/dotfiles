@@ -482,13 +482,6 @@ column point starts at, `tab-to-tab-stop' is done instead."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; svn
 
-(autoloads "psvn"
-           'svn-status)
-
-(eval-when-compile (require 'psvn))
-(eval-after-load "psvn"
-  '(setq svn-status-verbose nil))
-
 (define-generic-mode 'svn-commit-mode
   nil
   nil
