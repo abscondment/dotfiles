@@ -2,4 +2,4 @@
 
 number=$(echo $1 | sed 's/[^0-9]//')
 
-open http://info.kingcounty.gov/Assessor/eRealProperty/Dashboard.aspx?ParcelNbr=$number
+open "http://blue.kingcounty.com/Assessor/eRealProperty/Dashboard.aspx?ParcelNbr=$number"
