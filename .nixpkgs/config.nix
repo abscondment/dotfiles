@@ -6,8 +6,8 @@
         (haskellPackages: with haskellPackages; [
            # potentially add other haskell packages here
            # mtl QuickCheck random text alex cpphs happy ghc-paths
-           # hfsevents zlib
-           cabal-install stack yesod-bin yesod-test_1_4_4
+           # hfsevents zlib stack
+           cabal-install yesod-bin yesod-test_1_4_4
         ]);
   };
   allowUnfree = true;
