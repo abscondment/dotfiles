@@ -205,6 +205,8 @@ then
 fi
 export PATH="$HOME/.cabal/bin:$PATH"
 
+export PATH="/opt/bin:$PATH"
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
@@ -216,14 +218,6 @@ fi # added by Nix installer
 
 export HISTFILESIZE=10000
 
-# TODO: what was this even for
-# export PKG_CONFIG_PATH=~/.nix-profile/lib/pkgconfig:/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
-
-
-export PATH=/Users/brendan/torch/install/bin:$PATH  # Added automatically by torch-dist
-export LD_LIBRARY_PATH=/Users/brendan/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
-export DYLD_LIBRARY_PATH=/Users/brendan/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
-
 export PGUSER="$(whoami)"
 
 PATH="/Users/brendan/perl5/bin${PATH+:}${PATH}"; export PATH;
@@ -231,3 +225,14 @@ PERL5LIB="/Users/brendan/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5L
 PERL_LOCAL_LIB_ROOT="/Users/brendan/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/Users/brendan/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/brendan/perl5"; export PERL_MM_OPT;
+
+
+
+# CUDA
+export PATH="/Developer/NVIDIA/CUDA-7.5/bin:$PATH"
+export DYLD_LIBRARY_PATH="/Developer/NVIDIA/CUDA-7.5/lib:$DYLD_LIBRARY_PATH"
+
+. /Users/brendan/code/foss-clones/torch/install/bin/torch-activate
+
+
+. /Users/brendan/code/foss-clones/torch/install/bin/torch-activate

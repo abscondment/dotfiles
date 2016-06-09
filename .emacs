@@ -41,6 +41,7 @@
             paredit
             protobuf-mode
             ruby-electric
+            sass-mode
             swift-mode))))
 
 (add-to-list 'exec-path
@@ -279,18 +280,20 @@
       (concatenate 'list
                    auto-mode-alist
                    '(
+                     (".eye" . ruby-mode)
+                     (".eye.j2" . ruby-mode)
                      ("\\.bucklet" . python-mode)
+                     ("Gemfile" . ruby-mode)
+                     ("\\.scss" . sass-mode)
                      ("\\.gradle" . groovy-mode)
                      ("\\.gradle" . gradle-mode)
+                     ("\\.jsx" . javascript-mode)
                      ("\\.markdown" . markdown-mode)
                      ("\\.md" . markdown-mode)
                      ("\\.mirah" . ruby-mode)
+                     ("\\.org$" . org-mode)
                      ("Vagrantfile" . ruby-mode)
-                     (".eye" . ruby-mode)
-                     (".eye.j2" . ruby-mode)
-                     ("Gemfile" . ruby-mode)
-                     ("Berksfile" . ruby-mode)
-                     ("\\.org$" . org-mode))))
+                     )))
 
 ;; org-mode
 ;; TODO: emoji?
