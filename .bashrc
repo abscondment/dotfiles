@@ -227,11 +227,10 @@ PERL_MB_OPT="--install_base \"/Users/brendan/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/brendan/perl5"; export PERL_MM_OPT;
 
 
-
 # CUDA
 export PATH="/Developer/NVIDIA/CUDA-7.5/bin:$PATH"
 export DYLD_LIBRARY_PATH="/Developer/NVIDIA/CUDA-7.5/lib:$DYLD_LIBRARY_PATH"
 
-export TORCH_LUA_VERSION=LUA52
+#export TORCH_LUA_VERSION=LUA52
 
-. /Users/brendan/code/foss-clones/torch/install/bin/torch-activate
+#. /Users/brendan/code/foss-clones/torch/install/bin/torch-activate
