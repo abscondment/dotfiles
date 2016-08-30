@@ -287,6 +287,7 @@
                      ("\\.scss" . sass-mode)
                      ("\\.gradle" . groovy-mode)
                      ("\\.gradle" . gradle-mode)
+                     ("\\.js.erb" . javascript-mode)
                      ("\\.jsx" . javascript-mode)
                      ("\\.markdown" . markdown-mode)
                      ("\\.md" . markdown-mode)
