@@ -27,6 +27,8 @@
           '(cider
             clojure-mode
             company-emoji
+            elixir-mix
+            elixir-mode
             gradle-mode
             groovy-mode
             haskell-mode
@@ -280,11 +282,12 @@
       (concatenate 'list
                    auto-mode-alist
                    '(
+                     ("\\.bucklet" . python-mode)
+                     (".eex" . elixir-mode)
+                     (".ex" . elixir-mode)
                      (".eye" . ruby-mode)
                      (".eye.j2" . ruby-mode)
-                     ("\\.bucklet" . python-mode)
                      ("Gemfile" . ruby-mode)
-                     ("\\.scss" . sass-mode)
                      ("\\.gradle" . groovy-mode)
                      ("\\.gradle" . gradle-mode)
                      ("\\.js.erb" . javascript-mode)
@@ -293,8 +296,8 @@
                      ("\\.md" . markdown-mode)
                      ("\\.mirah" . ruby-mode)
                      ("\\.org$" . org-mode)
-                     ("Vagrantfile" . ruby-mode)
-                     )))
+                     ("\\.scss" . sass-mode)
+                     ("Vagrantfile" . ruby-mode))))
 
 ;; org-mode
 ;; TODO: emoji?
