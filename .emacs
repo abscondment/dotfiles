@@ -283,10 +283,11 @@
                    auto-mode-alist
                    '(
                      ("\\.bucklet" . python-mode)
-                     (".eex" . elixir-mode)
-                     (".ex" . elixir-mode)
                      (".eye" . ruby-mode)
                      (".eye.j2" . ruby-mode)
+                     ("\\.eex" . elixir-mode)
+                     ("\\.ex" . elixir-mode)
+                     ("\\.exs" . elixir-mode)
                      ("Gemfile" . ruby-mode)
                      ("\\.gradle" . groovy-mode)
                      ("\\.gradle" . gradle-mode)
