@@ -75,11 +75,6 @@ esac
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] 👻  \$ '
 if [[ $PLATFORM == 'osx' ]];
 then
-    # if [ "$PS1" ]; then
-    #     # only echo when interactive
-    #     echo "running CURL_CA_BUNDLE hack :("
-    # fi
-    export CURL_CA_BUNDLE=/usr/local/etc/openssl/cert.pem
     alias ls="ls -lG"
 else
     alias ls="ls -lG --color=auto"
