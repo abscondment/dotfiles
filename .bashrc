@@ -205,9 +205,9 @@ export PATH="/opt/bin:$PATH"
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-if [ -e /Users/brendan/.nix-profile/etc/profile.d/nix.sh ]
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]
 then
-    . /Users/brendan/.nix-profile/etc/profile.d/nix.sh
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
     nix?(){ nix-env -qa \* -P | fgrep -i "$1"; }
 fi # added by Nix installer
 
@@ -215,17 +215,9 @@ export HISTFILESIZE=10000
 
 export PGUSER="$(whoami)"
 
-PATH="/Users/brendan/perl5/bin${PATH+:}${PATH}"; export PATH;
-PERL5LIB="/Users/brendan/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/Users/brendan/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/Users/brendan/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/brendan/perl5"; export PERL_MM_OPT;
-
 
 # CUDA
 export PATH="/Developer/NVIDIA/CUDA-7.5/bin:$PATH"
 export DYLD_LIBRARY_PATH="/Developer/NVIDIA/CUDA-7.5/lib:$DYLD_LIBRARY_PATH"
 
 #export TORCH_LUA_VERSION=LUA52
-
-#. /Users/brendan/code/foss-clones/torch/install/bin/torch-activate
