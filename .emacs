@@ -254,8 +254,8 @@
 
 ;; to set this in .Xdefaults, use:
 ;; Emacs*font: dejavu sans mono-10
-(set-default-font "DejaVu Sans Mono-10")
-
+(when (member "DejaVu Sans Mono" (font-family-list))
+  (set-default-font "DejaVu Sans Mono-10"))
 
 
 (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)
