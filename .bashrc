@@ -165,7 +165,6 @@ source "$HOME/.secrets/git.bashrc"
 source "$HOME/.secrets/chef/chef.bashrc"
 source "$HOME/.secrets/ec2/aws.bashrc"
 source "$HOME/.secrets/ec2/heroku.bashrc"
-#source "$HOME/.secrets/ec2/replyyes.bashrc"
 source "$HOME/.secrets/ec2/essential.bashrc"
 
 #export ANDROID_HOME="/usr/local/Cellar/android-sdk/r18"
