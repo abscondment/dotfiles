@@ -29,6 +29,7 @@
             company-emoji
             elixir-mix
             elixir-mode
+            go-mode
             gradle-mode
             groovy-mode
             haskell-mode
@@ -402,6 +403,9 @@
  ;; If there is more than one, they won't work right.
  '(haskell-mode-hook (quote (turn-on-haskell-indentation)) t)
  '(magit-status-buffer-switch-function (quote pop-to-buffer))
+ '(package-selected-packages
+   (quote
+    (swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
  '(safe-local-variable-values
    (quote
     ((haskell-indent-spaces . 4)
