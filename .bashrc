@@ -158,14 +158,11 @@ portslay () {
    kill -9 `lsof -i tcp:$1 | tail -1 | awk '{ print $2;}'`
 }
 
-# GIT SECRETS
-source "$HOME/.secrets/git.bashrc"
-
-# MOAR SECRETS
-source "$HOME/.secrets/chef/chef.bashrc"
-source "$HOME/.secrets/ec2/aws.bashrc"
-source "$HOME/.secrets/ec2/heroku.bashrc"
-source "$HOME/.secrets/ec2/essential.bashrc"
+# add private bashrcs
+find "$HOME/.secrets/" -name '*.bashrc' | while read brc
+do
+    source $brc
+done
 
 #export ANDROID_HOME="/usr/local/Cellar/android-sdk/r18"
 export ANDROID_HOME="/usr/local/opt/android-sdk"
