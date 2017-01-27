@@ -27,6 +27,7 @@
           '(cider
             clojure-mode
             company-emoji
+            dockerfile-mode
             elixir-mix
             elixir-mode
             go-mode

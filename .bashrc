@@ -198,6 +198,10 @@ export PATH="$HOME/.cabal/bin:$PATH"
 
 export PATH="/opt/bin:$PATH"
 
+# GO crap
+export GOPATH="$HOME/code/gopath"
+export PATH="$GOPATH/bin:$PATH"
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
