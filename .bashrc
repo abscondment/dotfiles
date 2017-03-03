@@ -158,6 +158,9 @@ portslay () {
    kill -9 `lsof -i tcp:$1 | tail -1 | awk '{ print $2;}'`
 }
 
+shuf() { awk 'BEGIN {srand(); OFMT="%.17f"} {print rand(), $0}' "$@" |
+               sort -k1,1n | cut -d ' ' -f2-; }
+
 # add private bashrcs
 find "$HOME/.secrets/" -name '*.bashrc' | while read brc
 do
