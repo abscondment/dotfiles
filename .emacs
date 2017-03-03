@@ -46,7 +46,8 @@
             protobuf-mode
             ruby-electric
             sass-mode
-            swift-mode))))
+            swift-mode
+            thrift))))
 
 (add-to-list 'exec-path
              (format "%s/bin" (getenv "HOME")))
@@ -406,7 +407,7 @@
  '(magit-status-buffer-switch-function (quote pop-to-buffer))
  '(package-selected-packages
    (quote
-    (swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
+    (thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
  '(safe-local-variable-values
    (quote
     ((haskell-indent-spaces . 4)
