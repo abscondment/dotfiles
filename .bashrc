@@ -224,3 +224,12 @@ export PATH="/Developer/NVIDIA/CUDA-7.5/bin:$PATH"
 export DYLD_LIBRARY_PATH="/Developer/NVIDIA/CUDA-7.5/lib:$DYLD_LIBRARY_PATH"
 
 #export TORCH_LUA_VERSION=LUA52
+
+# add node-installed binaries to PATH
+enable_npm_bin () {
+    npm_binary=$(which npm)
+    if [ -n "$npm_binary" ]
+    then
+        export PATH="$PATH:$(dirname $(readlink $npm_binary))"
+    fi
+}
