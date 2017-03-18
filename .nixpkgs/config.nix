@@ -7,7 +7,7 @@
            # potentially add other haskell packages here
            # mtl QuickCheck random text alex cpphs happy ghc-paths
            # hfsevents zlib  yesod-test_1_4_4
-           stack cabal-install yesod-bin
+           yesod-bin
         ]);
   };
   allowUnfree = true;
