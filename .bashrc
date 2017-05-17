@@ -191,7 +191,6 @@ export MAHOUT_LOCAL="true"
 #export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$PATH:$HOME/code/foss-clones/buck/bin"
 
 if [[ $(type -t rbenv) ]] ;
 then
@@ -202,7 +201,7 @@ export PATH="$HOME/.cabal/bin:$PATH"
 export PATH="/opt/bin:$PATH"
 
 # GO crap
-export GOPATH="$HOME/code/gopath"
+export GOPATH="$HOME/code/go"
 export PATH="$GOPATH/bin:$PATH"
 
 ### Added by the Heroku Toolbelt
@@ -220,8 +219,8 @@ export PGUSER="$(whoami)"
 
 
 # CUDA
-export PATH="/Developer/NVIDIA/CUDA-7.5/bin:$PATH"
-export DYLD_LIBRARY_PATH="/Developer/NVIDIA/CUDA-7.5/lib:$DYLD_LIBRARY_PATH"
+# export PATH="/Developer/NVIDIA/CUDA-7.5/bin:$PATH"
+# export DYLD_LIBRARY_PATH="/Developer/NVIDIA/CUDA-7.5/lib:$DYLD_LIBRARY_PATH"
 
 #export TORCH_LUA_VERSION=LUA52
 
@@ -233,3 +232,6 @@ enable_npm_bin () {
         export PATH="$PATH:$(dirname $(readlink $npm_binary))"
     fi
 }
+
+# HACK for Cylance/nix/gofmt
+export PATH="/usr/local/go/bin:$PATH"

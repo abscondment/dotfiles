@@ -32,6 +32,7 @@
             elixir-mode
             go-mode
             gradle-mode
+            graphql-mode
             groovy-mode
             haskell-mode
             haml-mode
@@ -39,6 +40,7 @@
             shakespeare-mode
             js2-mode
             magit
+            markdown-mode
             mmm-mode
             oauth2
             org
@@ -277,10 +279,6 @@
 ;; ;; (setq twittering-icon-mode t)                ; Show icons
 ;; ;; (setq twittering-timer-interval (* 60 60))   ; Update automatically only once an hour
 
-
-(autoload 'markdown-mode "markdown-mode.el"
- "Major mode for editing Markdown files" t)
-
 (setq auto-mode-alist
       (concatenate 'list
                    auto-mode-alist
@@ -292,6 +290,8 @@
                      ("\\.ex" . elixir-mode)
                      ("\\.exs" . elixir-mode)
                      ("Gemfile" . ruby-mode)
+                     ("\\.go" . go-mode)
+                     ("\\.graphql" . graphql-mode)
                      ("\\.gradle" . groovy-mode)
                      ("\\.gradle" . gradle-mode)
                      ("\\.js.erb" . javascript-mode)
@@ -403,11 +403,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(haskell-mode-hook (quote (turn-on-haskell-indentation)) t)
+ '(haskell-mode-hook (quote (turn-on-haskell-indentation)))
  '(magit-status-buffer-switch-function (quote pop-to-buffer))
  '(package-selected-packages
    (quote
-    (thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
+    (graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
  '(safe-local-variable-values
    (quote
     ((haskell-indent-spaces . 4)
