@@ -139,9 +139,9 @@ ssh-add -l > /dev/null 2>&1
 test ${?} = 2 && ssh-agent -s > ~/.agent 2>/dev/null
 ##
 ## Add keys to forward:
-if [ -d ~/.ssh/id_madronalabs ];
+if [ -d ~/.ssh/id_axon ];
 then
-    ssh-add ~/.ssh/id_madronalabs > /dev/null 2>&1
+    ssh-add ~/.ssh/id_axon > /dev/null 2>&1
 fi
 ls -x1 ~/.ssh/id_* | grep -v '.pub$' | while read k
 do
