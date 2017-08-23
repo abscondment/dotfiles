@@ -133,25 +133,42 @@ export EDITOR=emacs
 #export JAVA_OPTS=-Xmx1536m
 
 # ssh-agent
-# start agent and set environment variables, if needed
-test -r ~/.agent && . ~/.agent > /dev/null 2>&1
-ssh-add -l > /dev/null 2>&1
-test ${?} = 2 && ssh-agent -s > ~/.agent 2>/dev/null
-##
-## Add keys to forward:
-if [ -d ~/.ssh/id_axon ];
-then
-    ssh-add ~/.ssh/id_axon > /dev/null 2>&1
+SSH_ENV=$HOME/.ssh/environment
+
+# start the ssh-agent
+function start_agent {
+    echo "Initializing new SSH agent..."
+    # spawn ssh-agent
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add
+}
+
+if [ -f "${SSH_ENV}" ]; then
+     . "${SSH_ENV}" > /dev/null
+     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
 fi
+
+## Add keys to forward:
+
+ssh_add_nodupe () {
+    k=$(ls -x1 $1)
+    exists=$(ssh-add -l | grep "$k")
+    if [ ! -n "$exists" ]; then
+        ssh-add $k > /dev/null 2>&1
+    fi
+}
+
 ls -x1 ~/.ssh/id_* | grep -v '.pub$' | while read k
 do
-    ssh-add $k > /dev/null 2>&1
+    ssh_add_nodupe $k
 done
-##
-##
-ln -sf $SSH_AUTH_SOCK ~/.ssh-auth-sock > /dev/null 2>&1
-ssh-add -l > /dev/null 2>&1
-test $? = 1 && ssh-add > /dev/null 2>&1
 
 portslay () {
    # portslay:  kill the task active on the specified TCP port
