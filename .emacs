@@ -431,6 +431,8 @@
  ;; If there is more than one, they won't work right.
  )
 
-(setenv "SSH_AUTH_SOCK" (concat (getenv "HOME") "/.ssh-auth-sock"))
+(require 'exec-path-from-shell)
+(exec-path-from-shell-copy-env "SSH_AGENT_PID")
+(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
 (setq js-indent-level 2)
