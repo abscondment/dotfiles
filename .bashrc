@@ -210,7 +210,11 @@ export PATH="/usr/local/heroku/bin:$PATH"
 if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]
 then
     . "$HOME/.nix-profile/etc/profile.d/nix.sh"
-    nix?(){ nix-env -qa \* -P | fgrep -i "$1"; }
+
+    nix? () {
+        nix-env -qa \* -P | fgrep -i "$1"
+    }
+
 fi # added by Nix installer
 
 export HISTFILESIZE=10000

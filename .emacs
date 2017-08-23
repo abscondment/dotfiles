@@ -407,7 +407,7 @@
  '(magit-status-buffer-switch-function (quote pop-to-buffer))
  '(package-selected-packages
    (quote
-    (graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
+    (exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
  '(safe-local-variable-values
    (quote
     ((haskell-indent-spaces . 4)
