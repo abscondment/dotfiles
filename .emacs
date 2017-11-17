@@ -44,6 +44,7 @@
             mmm-mode
             oauth2
             org
+            org-present
             paredit
             protobuf-mode
             ruby-electric
@@ -214,6 +215,21 @@
 
 (add-hook 'nxml-mode 'hexcolour-add-to-font-lock)
 
+(autoload 'org-present "org-present" nil t)
+(eval-after-load "org-present"
+  '(progn
+     (add-hook 'org-present-mode-hook
+               (lambda ()
+                 (org-present-big)
+                 (org-display-inline-images)
+                 (org-present-hide-cursor)
+                 (org-present-read-only)))
+     (add-hook 'org-present-mode-quit-hook
+               (lambda ()
+                 (org-present-small)
+                 (org-remove-inline-images)
+                 (org-present-show-cursor)
+                 (org-present-read-write)))))
 
 (autoload 'awk-mode "cc-mode" nil t)
 
@@ -283,6 +299,8 @@
       (concatenate 'list
                    auto-mode-alist
                    '(
+                     ("\\.bazel" . python-mode)
+                     ("\\.bzl" . python-mode)
                      ("\\.bucklet" . python-mode)
                      (".eye" . ruby-mode)
                      (".eye.j2" . ruby-mode)
@@ -407,7 +425,7 @@
  '(magit-status-buffer-switch-function (quote pop-to-buffer))
  '(package-selected-packages
    (quote
-    (exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
+    (org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
  '(safe-local-variable-values
    (quote
     ((haskell-indent-spaces . 4)
