@@ -232,6 +232,10 @@ then
         nix-env -qa \* -P | fgrep -i "$1"
     }
 
+    nix-show-upgrades () {
+        nix-channel --update && nix-env --upgrade --dry-run
+    }
+
 fi # added by Nix installer
 
 export HISTFILESIZE=10000
