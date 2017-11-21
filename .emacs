@@ -299,27 +299,38 @@
       (concatenate 'list
                    auto-mode-alist
                    '(
-                     ("\\.bazel" . python-mode)
-                     ("\\.bzl" . python-mode)
-                     ("\\.bucklet" . python-mode)
+                     ;; generic Ruby extras
                      (".eye" . ruby-mode)
+                     ("Vagrantfile" . ruby-mode)
                      (".eye.j2" . ruby-mode)
+                     ("Gemfile" . ruby-mode)
+                     ("\\.mirah" . ruby-mode)
+
                      ("\\.eex" . elixir-mode)
                      ("\\.ex" . elixir-mode)
                      ("\\.exs" . elixir-mode)
-                     ("Gemfile" . ruby-mode)
                      ("\\.go" . go-mode)
+
+                     ;; bazel
+                     ("WORKSPACE" . python-mode)
+                     ("\\.bazel" . python-mode)
+                     ("\\.bzl" . python-mode)
+                     ;; buck
+                     ("\\.bucklet" . python-mode)
+
+
                      ("\\.graphql" . graphql-mode)
                      ("\\.gradle" . groovy-mode)
                      ("\\.gradle" . gradle-mode)
+
                      ("\\.js.erb" . javascript-mode)
                      ("\\.jsx" . javascript-mode)
+
                      ("\\.markdown" . markdown-mode)
                      ("\\.md" . markdown-mode)
-                     ("\\.mirah" . ruby-mode)
                      ("\\.org$" . org-mode)
                      ("\\.scss" . sass-mode)
-                     ("Vagrantfile" . ruby-mode))))
+                     )))
 
 ;; org-mode
 ;; TODO: emoji?
