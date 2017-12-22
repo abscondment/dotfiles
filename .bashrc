@@ -77,7 +77,7 @@ if [[ $PLATFORM == 'osx' ]];
 then
     alias ls="ls -lG"
 else
-    alias ls="ls -lG --color=auto"
+    alias ls="ls -lG --color=always"
 fi
 
 
