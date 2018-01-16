@@ -238,13 +238,6 @@ export HISTFILESIZE=10000
 
 export PGUSER="$(whoami)"
 
-
-# CUDA
-# export PATH="/Developer/NVIDIA/CUDA-7.5/bin:$PATH"
-# export DYLD_LIBRARY_PATH="/Developer/NVIDIA/CUDA-7.5/lib:$DYLD_LIBRARY_PATH"
-
-#export TORCH_LUA_VERSION=LUA52
-
 # add node-installed binaries to PATH
 enable_npm_bin () {
     npm_binary=$(which npm)
@@ -256,3 +249,8 @@ enable_npm_bin () {
 
 # HACK for Cylance/nix/gofmt
 export PATH="/usr/local/go/bin:$PATH"
+
+# CUDA
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
+export CUDA_HOME=/usr/local/cuda
+#export TORCH_LUA_VERSION=LUA52
