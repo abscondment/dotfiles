@@ -45,6 +45,7 @@
             oauth2
             org
             org-present
+            org-trello
             paredit
             protobuf-mode
             ruby-electric
@@ -341,6 +342,8 @@
 (define-key global-map "\C-cb" 'org-iswitchb)
 (setq org-log-done t)
 (setq org-agenda-files (setq org-agenda-files '("~/Documents/org")))
+(custom-set-variables '(org-trello-files '("~/Documents/org/todo.org")))
+
 
 ;; define categories that should be excluded
 (setq org-export-exclude-category (list "home" "contracting" "private" "work"))
@@ -436,7 +439,7 @@
  '(magit-status-buffer-switch-function (quote pop-to-buffer))
  '(package-selected-packages
    (quote
-    (org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
+    (org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
  '(safe-local-variable-values
    (quote
     ((haskell-indent-spaces . 4)
