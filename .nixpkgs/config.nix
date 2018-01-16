@@ -11,5 +11,5 @@
                        stack
                      ]);
   };
-  allowUnfree = true;
+  # allowUnfree = true;
 }
