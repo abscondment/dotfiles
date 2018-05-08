@@ -30,6 +30,7 @@
             dockerfile-mode
             elixir-mix
             elixir-mode
+            exec-path-from-shell
             go-mode
             gradle-mode
             graphql-mode
