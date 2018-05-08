@@ -342,7 +342,23 @@
 (define-key global-map "\C-cb" 'org-iswitchb)
 (setq org-log-done t)
 (setq org-agenda-files (setq org-agenda-files '("~/Documents/org")))
-(custom-set-variables '(org-trello-files '("~/Documents/org/todo.org")))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(haskell-mode-hook (quote (turn-on-haskell-indentation)))
+ '(magit-status-buffer-switch-function (quote pop-to-buffer))
+ '(org-trello-files (quote ("~/Documents/org/todo.org")))
+ '(package-selected-packages
+   (quote
+    (org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
+ '(safe-local-variable-values
+   (quote
+    ((haskell-indent-spaces . 4)
+     (haskell-indent-spaces . 2)
+     (haskell-process-use-ghci . t)
+     (hamlet/basic-offset . 2)))))
 
 
 ;; define categories that should be excluded
@@ -430,22 +446,7 @@
 (add-hook 'javascript-mode-hook 'my-javascript-mode-hook)
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(haskell-mode-hook (quote (turn-on-haskell-indentation)))
- '(magit-status-buffer-switch-function (quote pop-to-buffer))
- '(package-selected-packages
-   (quote
-    (org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
- '(safe-local-variable-values
-   (quote
-    ((haskell-indent-spaces . 4)
-     (haskell-indent-spaces . 2)
-     (haskell-process-use-ghci . t)
-     (hamlet/basic-offset . 2)))))
+
 
 (require 'shakespeare-mode)
 (eval-after-load 'flycheck
