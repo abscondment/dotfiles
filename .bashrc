@@ -248,7 +248,7 @@ enable_npm_bin () {
 }
 
 # HACK for Cylance/nix/gofmt
-export PATH="/usr/local/go/bin:$PATH"
+export PATH="/usr/local/go/bin:$PATH:/home/bribera/.cargo/bin"
 
 # CUDA
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
