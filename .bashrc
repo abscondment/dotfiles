@@ -177,9 +177,8 @@ do
     source $brc
 done
 
-#export ANDROID_HOME="/usr/local/Cellar/android-sdk/r18"
-export ANDROID_HOME="/usr/local/opt/android-sdk"
-export PATH="$ANDROID_HOME/bin:$ANDROID_HOME/platform-tools:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/bin"
+export ANDROID_HOME="/usr/local/Caskroom/android-sdk/4333796"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/bin:$ANDROID_HOME/build-tools/28.0.2/:$ANDROID_HOME/platform-tools/"
 
 
 if [[ $PLATFORM == 'osx' ]];
