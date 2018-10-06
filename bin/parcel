@@ -1,5 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 number=$(echo $1 | sed 's/[^0-9]//')
+path="http://blue.kingcounty.com/Assessor/eRealProperty/Dashboard.aspx?ParcelNbr=$number"
 
-xdg-open "http://blue.kingcounty.com/Assessor/eRealProperty/Dashboard.aspx?ParcelNbr=$number"
+if [ test -x "$(which xdg-open)" ]
+then
+    xdg-open $path
+else
+    open $path
+fi
