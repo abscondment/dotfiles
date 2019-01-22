@@ -3,7 +3,7 @@
 number=$(echo $1 | sed 's/[^0-9]//')
 path="http://blue.kingcounty.com/Assessor/eRealProperty/Dashboard.aspx?ParcelNbr=$number"
 
-if [ test -x "$(which xdg-open)" ]
+if [ -x "$(which xdg-open)" ]
 then
     xdg-open $path
 else
