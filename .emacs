@@ -40,6 +40,7 @@
             flycheck-haskell
             shakespeare-mode
             js2-mode
+            lsp-mode
             magit
             markdown-mode
             mmm-mode
@@ -52,7 +53,8 @@
             ruby-electric
             sass-mode
             swift-mode
-            thrift))))
+            thrift
+            typescript-mode))))
 
 (add-to-list 'exec-path
              (format "%s/bin" (getenv "HOME")))
@@ -332,7 +334,19 @@
                      ("\\.md" . markdown-mode)
                      ("\\.org$" . org-mode)
                      ("\\.scss" . sass-mode)
+                     ("\\.ts" . typescript-mode)
                      )))
+
+(require 'lsp-mode)
+(add-hook 'go-mode-hook #'lsp)
+
+;; (use-package lsp-mode
+;;              :commands lsp
+;;              :init
+;;              (lsp-register-client
+;;               (make-lsp-client :new-connection (lsp-stdio-connection "gopls")
+;;                                :major-modes '(go-mode)
+;;                                :server-id 'gopls)))
 
 ;; org-mode
 ;; TODO: emoji?
@@ -353,7 +367,7 @@
  '(org-trello-files (quote ("~/Documents/org/todo.org")))
  '(package-selected-packages
    (quote
-    (dhall-mode org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
+    (typescript-mode lsp-mode dhall-mode org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
  '(safe-local-variable-values
    (quote
     ((haskell-indent-spaces . 4)

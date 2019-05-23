@@ -3,6 +3,7 @@
 /.emacs.d/elpa
 /.emacs.d/.org-id-locations
 /.emacs.d/session.*
+/.emacs.d/transient
 /.emacs.d/url/cache
 /.emacs.d/url/cookies
 /.lein/self-installs
