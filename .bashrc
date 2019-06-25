@@ -55,6 +55,10 @@ if [ -f "$HOME/.bashrc.fns" ]; then
     . "$HOME/.bashrc.fns"
 fi
 
+if [ -f "$HOME/.tmuxinator.bash" ]; then
+	. "$HOME/.tmuxinator.bash"
+fi
+
 # Screen settings
 alias screen="screen -e ^Ll"
 
