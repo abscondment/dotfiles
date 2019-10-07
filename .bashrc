@@ -181,9 +181,8 @@ do
     source $brc
 done
 
-export ANDROID_HOME="/usr/local/Caskroom/android-sdk/4333796"
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/bin:$ANDROID_HOME/build-tools/28.0.2/:$ANDROID_HOME/platform-tools/"
-
+#export ANDROID_HOME="/usr/local/Caskroom/android-sdk/4333796"
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/bin"
 
 if [[ $PLATFORM == 'osx' ]];
 then

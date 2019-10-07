@@ -367,7 +367,7 @@
  '(org-trello-files (quote ("~/Documents/org/todo.org")))
  '(package-selected-packages
    (quote
-    (flow-js2-mode prettier-js typescript-mode lsp-mode dhall-mode org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
+    (scala-mode flow-js2-mode prettier-js typescript-mode lsp-mode dhall-mode org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
  '(safe-local-variable-values
    (quote
     ((haskell-indent-spaces . 4)
