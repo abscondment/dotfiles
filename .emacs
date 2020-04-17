@@ -364,6 +364,7 @@
  ;; If there is more than one, they won't work right.
  '(haskell-mode-hook (quote (turn-on-haskell-indentation)))
  '(magit-status-buffer-switch-function (quote pop-to-buffer))
+ '(org-trello-current-prefix-keybinding "C-c o")
  '(org-trello-files (quote ("~/Documents/org/todo.org")))
  '(package-selected-packages
    (quote
