@@ -1,0 +1,11 @@
+#!/bin/env bash
+
+set -euo pipefail
+
+find .nix-profile/share/icons/ -name '*g' | while read path
+do
+    relpath=$(dirname $path | cut -d '/' -f 2-)
+    mkdir -p "$HOME/.local/$relpath"
+    ln -sf "$HOME/$path" "$HOME/.local/$relpath/"
+    echo "✓ $(echo $path | cut -d '/' -f 2-)"
+done
