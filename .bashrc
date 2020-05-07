@@ -235,6 +235,7 @@ fi # added by Nix installer
 
 # add ls alias after nix so that we get --color on OSX
 alias ls="ls -lG --color=always"
+alias irb="irb --nomultiline"
 
 export HISTFILESIZE=10000
 
@@ -256,3 +257,4 @@ export PATH="/usr/local/go/bin:$PATH:/home/bribera/.cargo/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
 export CUDA_HOME=/usr/local/cuda
 #export TORCH_LUA_VERSION=LUA52
+export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
