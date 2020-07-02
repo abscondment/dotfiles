@@ -203,6 +203,7 @@ export MAHOUT_LOCAL="true"
 #export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
+alias irb="irb --nomultiline"
 
 if [[ $(type -t rbenv) ]] ;
 then
@@ -258,3 +259,4 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/e
 export CUDA_HOME=/usr/local/cuda
 #export TORCH_LUA_VERSION=LUA52
 export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
+#export GOPRIVATE="*taservs.net*"

@@ -1,4 +1,9 @@
 #!/bin/bash
 
-docker system prune -f --volumes
+set -x -euo pipefail
+
 nix-collect-garbage -d
+docker image prune -a -f
+docker container prune -f
+docker volume prune -f
+docker network prune -f

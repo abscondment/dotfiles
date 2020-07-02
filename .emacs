@@ -338,7 +338,7 @@
                      )))
 
 (require 'lsp-mode)
-(add-hook 'go-mode-hook #'lsp)
+;;(add-hook 'go-mode-hook #'lsp)
 
 ;; (use-package lsp-mode
 ;;              :commands lsp
@@ -461,10 +461,8 @@
         c-basic-offset 2
         js-indent-level 2
         ))
+
 (add-hook 'javascript-mode-hook 'my-javascript-mode-hook)
-
-
-
 
 (require 'shakespeare-mode)
 (eval-after-load 'flycheck
