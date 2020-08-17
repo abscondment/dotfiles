@@ -11,7 +11,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'cl)
+(require 'cl-lib)
 (require 'etags)
 
 ;;
@@ -48,7 +48,7 @@
         (substring str (match-beginning section) (match-end section))
       nil)))
 
-(defvar abtags-include-regexp-alist 
+(defvar abtags-include-regexp-alist
   (list '("uses[ \t]+\"\\([^\"]+\\)\"" 1)
         '("^#include[ \t]+[<\"]\\([^>\"]+\\)[>\"]" 1)
         '("^source.*/\\([^/]+\\)[ \t]*$" 1)

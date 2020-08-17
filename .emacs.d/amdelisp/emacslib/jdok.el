@@ -117,7 +117,7 @@
 ;; Code cleanup and documentation rewrite.
 ;;
 ;; Revision 1.8  1999/05/07 08:08:28  ebat311
-;; Added (require 'cl) to avoid problem using `mapcar'
+;; Added (require 'cl-lib) to avoid problem using `mapcar'
 ;; and `mapc' from `cl-extra'.
 ;;
 ;; Revision 1.7  1999-04-22 23:34:53+02  ebat311
@@ -397,7 +397,7 @@ Return non-nil if the point has moved just after the comment."
         (setq found (looking-at ender-re)))
       (and found (forward-char (length ender))))
     found))
-       
+
 (defun jdok-get-normalized-source (&optional end-delimiters)
   "Return a normalized source string from the current buffer.
 
@@ -612,17 +612,17 @@ Useful to generate HTML code style."
   (indent-according-to-mode)
   (insert "/**")
   (reindent-then-newline-and-indent))
-  
+
 (defun jdok-insert-empty-line ()
   "Insert an empty javadoc line '*'."
   (insert "*")
   (reindent-then-newline-and-indent))
-  
+
 (defun jdok-insert-end-block ()
   "Insert a javadoc end comment block '*/'."
   (insert "*/")
   (reindent-then-newline-and-indent))
-  
+
 (defun jdok-insert-template (template-name)
   "Insert the `tempo' line template TEMPLATE-NAME. Does nothing if
 TEMPLATE is nil."
@@ -815,7 +815,7 @@ key `C-cj' to the `jdok-generate-javadoc-template' command."
       (add-hook 'c-initialization-hook
                 '(lambda ()
                    (define-key (symbol-value 'java-mode-map)
-                     "\C-cj"  'jdok-generate-javadoc-template))) 
+                     "\C-cj"  'jdok-generate-javadoc-template)))
     (define-key (symbol-value 'java-mode-map)
       "\C-cj"  'jdok-generate-javadoc-template)))
 

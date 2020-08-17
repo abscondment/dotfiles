@@ -279,8 +279,8 @@
 
 ;; to set this in .Xdefaults, use:
 ;; Emacs*font: dejavu sans mono-10
-(when (member "DejaVu Sans Mono" (font-family-list))
-  (set-default-font "DejaVu Sans Mono-10"))
+;; (when (member "DejaVu Sans Mono" (font-family-list))
+;;   (set-default-font "DejaVu Sans Mono-10"))
 
 
 (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)
@@ -300,8 +300,7 @@
 ;; ;; (setq twittering-timer-interval (* 60 60))   ; Update automatically only once an hour
 
 (setq auto-mode-alist
-      (concatenate 'list
-                   auto-mode-alist
+      (cl-concatenate 'list auto-mode-alist
                    '(
                      ;; generic Ruby extras
                      (".eye" . ruby-mode)

@@ -465,7 +465,7 @@ ask first. LIST defaults to all existing live buffers."
 
 (defvar mode-list
   '(emacs-lisp-mode java-mode lisp-interaction-mode lisp-mode makefile-mode
-                    perl-mode python-mode sgml-mode shell-mode shell-script-mode tetris-mode
+                    perl-mode sgml-mode shell-mode shell-script-mode tetris-mode
                     c-mode-common text-mode fundamental-mode sql-mode sql-interactive-mode
                     generic-mode gud-mode bat-generic-mode properties-generic-mode p4-buffer-mode
                     nxml-mode js2-mode)

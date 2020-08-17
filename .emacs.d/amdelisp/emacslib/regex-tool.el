@@ -51,7 +51,7 @@
 ;; 1.2 - Include cl.el at compile time
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 (defgroup regex-tool nil
   "Outline-based notes management and organizer."

@@ -2,7 +2,7 @@
 ;;; This file is only loaded when window-system is true.
 ;;;
 
-(require 'cl)
+(require 'cl-lib)
 (require 'font-lock)
 
 (defun window-build-font (family points)

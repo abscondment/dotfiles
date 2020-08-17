@@ -78,20 +78,6 @@ functions from one source file."
 (add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; python
-
-(eval-when-compile (require 'python-mode))
-(defun my-python-setup ()
-  (setq tab-width 2)
-  (define-key py-mode-map [backspace] 'py-electric-backspace))
-(add-hook 'python-mode-hook 'my-python-setup)
-(autoload 'python-mode "python-mode" "Python editing mode." t)
-(add-to-list 'interpreter-mode-alist '("python" . python-mode))
-(add-to-list 'interpreter-mode-alist '("python2" . python-mode))
-(add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tcl
 

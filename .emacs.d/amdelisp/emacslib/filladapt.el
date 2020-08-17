@@ -90,8 +90,8 @@
     ;; We have the old custom-library, hack around it!
     (defmacro defgroup (&rest args)
       nil)
-    (defmacro defcustom (var value doc &rest args) 
-      (` (defvar (, var) (, value) (, doc))))))
+    (defmacro defcustom (var value doc &rest args)
+      `(defvar ,var ,value ,doc))))
 
 (defgroup filladapt nil
   "Enhanced filling"
