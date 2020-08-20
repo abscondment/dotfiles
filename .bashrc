@@ -235,7 +235,7 @@ then
 fi # added by Nix installer
 
 # add ls alias after nix so that we get --color on OSX
-alias ls="ls -lG --color=always"
+alias ls="ls -l --color=always"
 alias irb="irb --nomultiline"
 
 export HISTFILESIZE=10000
