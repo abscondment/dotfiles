@@ -259,4 +259,3 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/e
 export CUDA_HOME=/usr/local/cuda
 #export TORCH_LUA_VERSION=LUA52
 export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
-#export GOPRIVATE="*taservs.net*"
