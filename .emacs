@@ -28,7 +28,6 @@
             clojure-mode
             company-emoji
             dockerfile-mode
-            elixir-mix
             elixir-mode
             exec-path-from-shell
             go-mode
@@ -43,6 +42,7 @@
             lsp-mode
             magit
             markdown-mode
+            mix
             mmm-mode
             oauth2
             org
@@ -64,11 +64,11 @@
                        (format ":%s/bin" (getenv "HOME"))))
 
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/")
+             '("org" . "https://orgmode.org/elpa/"))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/")))
-(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
 (package-initialize)
 
 ;;; install missing packages
@@ -361,19 +361,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(haskell-mode-hook (quote (turn-on-haskell-indentation)))
- '(magit-status-buffer-switch-function (quote pop-to-buffer))
+ '(haskell-mode-hook '(turn-on-haskell-indentation))
+ '(magit-status-buffer-switch-function 'pop-to-buffer)
  '(org-trello-current-prefix-keybinding "C-c o")
- '(org-trello-files (quote ("~/Documents/org/todo.org")))
+ '(org-trello-files '("~/Documents/org/todo.org"))
  '(package-selected-packages
-   (quote
-    (scala-mode flow-js2-mode prettier-js typescript-mode lsp-mode dhall-mode org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode elixir-mix company-emoji cider)))
+   '(mix scala-mode flow-js2-mode prettier-js typescript-mode lsp-mode dhall-mode org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode company-emoji cider))
  '(safe-local-variable-values
-   (quote
-    ((haskell-indent-spaces . 4)
+   '((haskell-indent-spaces . 4)
      (haskell-indent-spaces . 2)
      (haskell-process-use-ghci . t)
-     (hamlet/basic-offset . 2)))))
+     (hamlet/basic-offset . 2))))
 
 
 ;; define categories that should be excluded
