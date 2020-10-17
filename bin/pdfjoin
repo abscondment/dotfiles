@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -eu
+
+PATTERN=""
+for i in "$@"
+do
+case $i in
+    -p=*|--pattern=*)
+    PATTERN="${i#*=}"
+    shift # past argument=value
+    ;;
+    *)
+          # unknown option
+    ;;
+esac
+done
+
+if [ -z "$PATTERN" ]
+then
+    echo "Usage: ppdfjoin --pattern=PATTERN"
+    exit 1
+fi
+
+joined="${PATTERN}.pdf"
+inputs=$(ls -1 ${PATTERN}*.pdf)
+# be sure not to join/delete the destination pdf recursively
+inputs=${inputs[@]/$joined}
+
+gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile="${joined}" ${inputs}
+
+if [ -s "${joined}" ]
+then
+    rm -f ${inputs}
+fi
