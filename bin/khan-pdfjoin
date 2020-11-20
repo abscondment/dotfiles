@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -eu
+
+ls -x1 | grep -E '*-[0-9].pdf' | cut -d '-' -f 1-6 | sort | uniq | while read p
+do
+    echo -n "Joining ${p}..."
+    pdfjoin --pattern=${p}
+    echo "✅"
+done
