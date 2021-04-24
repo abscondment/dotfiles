@@ -44,6 +44,7 @@
             markdown-mode
             mix
             mmm-mode
+            nix-mode
             oauth2
             org
             org-present
@@ -331,6 +332,7 @@
 
                      ("\\.markdown" . markdown-mode)
                      ("\\.md" . markdown-mode)
+                     ("\\.nix" . nix-mode)
                      ("\\.org$" . org-mode)
                      ("\\.scss" . sass-mode)
                      ("\\.ts" . typescript-mode)
@@ -366,7 +368,7 @@
  '(org-trello-current-prefix-keybinding "C-c o")
  '(org-trello-files '("~/Documents/org/todo.org"))
  '(package-selected-packages
-   '(erblint mix scala-mode flow-js2-mode prettier-js typescript-mode lsp-mode dhall-mode org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode company-emoji cider))
+   '(nix-mode erblint mix scala-mode flow-js2-mode prettier-js typescript-mode lsp-mode dhall-mode org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode company-emoji cider))
  '(safe-local-variable-values
    '((haskell-indent-spaces . 4)
      (haskell-indent-spaces . 2)
