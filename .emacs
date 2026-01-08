@@ -1,5 +1,8 @@
 ;; (setq debug-on-error t)
 
+(setq explicit-shell-file-name
+      "/Users/bribera/.nix-profile/bin/bash")
+
 (defun path-with-home (path)
   (format "%s/%s" (getenv "HOME") path))
 
@@ -49,11 +52,14 @@
             org
             org-present
             org-trello
+            ox-reveal
             paredit
             protobuf-mode
             ruby-electric
             sass-mode
+            scala-mode
             swift-mode
+            terraform-mode
             thrift
             typescript-mode))))
 
@@ -65,11 +71,11 @@
                        (format ":%s/bin" (getenv "HOME"))))
 
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/")
-             '("org" . "https://orgmode.org/elpa/"))
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/")))
+             '("melpa-stable" . "https://stable.melpa.org/packages/")
+             ;; '("melpa" . "https://melpa.org/packages/")
+             ;; '("org" . "https://orgmode.org/elpa/")
+             )
+
 (package-initialize)
 
 ;;; install missing packages
@@ -80,6 +86,12 @@
           (progn (package-refresh-contents)
                  (dolist (package not-installed)
                    (package-install package))))))
+
+(require 'exec-path-from-shell)
+;; (setq exec-path-from-shell-debug t)
+(dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+  (add-to-list 'exec-path-from-shell-variables var))
+(exec-path-from-shell-initialize)
 
 (load (format "%s/start" AMDELISP))
 
@@ -215,8 +227,8 @@
 
 ;; use TAB key for completion everywhere
 
-(global-set-key-override0 "\t" 'clever-hippie-tab)
-(global-set-key-override "\t" 'clever-nxml-tab 'nxml-mode)
+;(global-set-key-override0 "\t" 'clever-hippie-tab)
+;(global-set-key-override "\t" 'clever-nxml-tab 'nxml-mode)
 
 (add-hook 'nxml-mode 'hexcolour-add-to-font-lock)
 
@@ -225,6 +237,7 @@
   '(progn
      (add-hook 'org-present-mode-hook
                (lambda ()
+                 (visual-line-mode)
                  (org-present-big)
                  (org-display-inline-images)
                  (org-present-hide-cursor)
@@ -237,8 +250,6 @@
                  (org-present-read-write)))))
 
 (autoload 'awk-mode "cc-mode" nil t)
-
-(when window-system (require 'linum))
 
 (defun amd-tab-table (desc str)
   (let ((section (car (cdr desc))))
@@ -322,23 +333,28 @@
                      ;; buck
                      ("\\.bucklet" . python-mode)
 
-
                      ("\\.graphql" . graphql-mode)
                      ("\\.gradle" . groovy-mode)
                      ("\\.gradle" . gradle-mode)
+                     ("\\.scala" . scala-mode)
 
                      ("\\.js.erb" . javascript-mode)
                      ("\\.jsx" . javascript-mode)
 
+                     ("\\.hcl" . terraform-mode)
                      ("\\.markdown" . markdown-mode)
                      ("\\.md" . markdown-mode)
                      ("\\.nix" . nix-mode)
                      ("\\.org$" . org-mode)
                      ("\\.scss" . sass-mode)
                      ("\\.ts" . typescript-mode)
+                     ("\\.yml" . yaml-mode)
+                     ("\\.yaml" . yaml-mode)
                      )))
 
 (require 'lsp-mode)
+(add-hook 'completion-at-point-functions 'go-complete-at-point)
+
 ;;(add-hook 'go-mode-hook #'lsp)
 
 ;; (use-package lsp-mode
@@ -358,22 +374,28 @@
 (define-key global-map "\C-cb" 'org-iswitchb)
 (setq org-log-done t)
 (setq org-agenda-files (setq org-agenda-files '("~/Documents/org")))
+(setq org-image-actual-width nil)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(haskell-mode-hook '(turn-on-haskell-indentation))
+ '(magit-git-executable "~/.nix-profile/bin/git")
  '(magit-status-buffer-switch-function 'pop-to-buffer)
  '(org-trello-current-prefix-keybinding "C-c o")
  '(org-trello-files '("~/Documents/org/todo.org"))
  '(package-selected-packages
-   '(nix-mode erblint mix scala-mode flow-js2-mode prettier-js typescript-mode lsp-mode dhall-mode org-trello org-present exec-path-from-shell graphql-mode markdown-mode thrift swift-mode shakespeare-mode sass-mode ruby-electric protobuf-mode paredit oauth2 mmm-mode magit js2-mode groovy-mode gradle-mode flycheck-haskell elixir-mode company-emoji cider))
+   '(cider company-emoji cond-let dockerfile-mode elixir-mode epresent
+           exec-path-from-shell flycheck-haskell go-complete
+           gradle-mode graphql-mode groovy-mode js2-mode kotlin-mode
+           lsp-mode mix mmm-mode nix-mode oauth2 org-present
+           org-trello ox-reveal paredit protobuf-mode ruby-electric
+           sass-mode scala-mode shakespeare-mode swift-mode
+           terraform-mode thrift transient typescript-mode yaml-mode))
  '(safe-local-variable-values
-   '((haskell-indent-spaces . 4)
-     (haskell-indent-spaces . 2)
-     (haskell-process-use-ghci . t)
-     (hamlet/basic-offset . 2))))
+   '((haskell-indent-spaces . 4) (haskell-indent-spaces . 2)
+     (haskell-process-use-ghci . t) (hamlet/basic-offset . 2))))
 
 
 ;; define categories that should be excluded
@@ -453,7 +475,10 @@
 ;; nrepl
 (setq nrepl-popup-stacktraces nil)
 
+(setq-default kotlin-tab-width 2)
 (add-hook 'java-mode-hook (lambda () (setq c-basic-offset 2)))
+(add-hook 'kotlin-mode (lambda () (setq kotlin-tab-width 2
+                                        c-basic-offset 2)))
 (setq-default typescript-indent-level 2)
 (defun my-javascript-mode-hook ()
   (setq indent-tabs-mode nil
@@ -479,8 +504,10 @@
  ;; If there is more than one, they won't work right.
  )
 
-(require 'exec-path-from-shell)
-(exec-path-from-shell-copy-env "SSH_AGENT_PID")
-(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
 (setq js-indent-level 2)
+
+(setq-default ispell-program-name "/Users/bribera/.nix-profile/bin/aspell")
+
+;; (setq debug-on-error t)
+(put 'dired-find-alternate-file 'disabled nil)

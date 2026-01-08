@@ -55,10 +55,6 @@ if [ -f "$HOME/.bashrc.fns" ]; then
     . "$HOME/.bashrc.fns"
 fi
 
-if [ -f "$HOME/.tmuxinator.bash" ]; then
-	. "$HOME/.tmuxinator.bash"
-fi
-
 # Screen settings
 alias screen="screen -e ^Ll"
 
@@ -123,11 +119,11 @@ dir_w_sticky_c=ac
 dir_w_c=ac
 
 export LSCOLORS="$dir_c$sym_c$socket_c$pipe_c$x_c$bspec_c$cspec_c$x_setuid_c$x_setgid_c$dir_w_sticky_c$dir_w_c"
+export HISTSIZE=20000
 
 # alias xcodebuild="xcodebuild -activetarget -activeconfiguration -sdk iphonesimulator4.0"
 
 export EDITOR=emacs
-#export JAVA_OPTS=-Xmx1536m
 
 # ssh-agent
 SSH_ENV=$HOME/.ssh/environment
@@ -172,73 +168,37 @@ portslay () {
    kill -9 `lsof -i tcp:$1 | tail -1 | awk '{ print $2;}'`
 }
 
+ag1_tools () {
+    ag1tools=$(kubectl --context ag1-va-rms -n rms get pods -l app=tools -o json | jq '.items[0].metadata.name' -r)
+    kubectl --context ag1-va-rms -n rms exec -it ${ag1tools} -- /bin/bash -c "tmux attach || tmux"
+}
+
 shuf() { awk 'BEGIN {srand(); OFMT="%.17f"} {print rand(), $0}' "$@" |
                sort -k1,1n | cut -d ' ' -f2-; }
 
 # add private bashrcs
-find "$HOME/.secrets/" -name '*.bashrc' | while read brc
-do
-    source $brc
-done
+while read -r f ; do source "$f" ;  done < <(find "$HOME/.secrets/" -iname '*.bashrc')
 
-#export ANDROID_HOME="/usr/local/Caskroom/android-sdk/4333796"
-export PATH="$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/bin"
+export PATH="$PATH:$HOME/go/bin:/opt/homebrew/bin"
 
-if [[ $PLATFORM == 'osx' ]];
-then
-    export JAVA6_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
-    export JAVA7_HOME="$(/usr/libexec/java_home)"
-    export JAVA_HOME=$JAVA7_HOME
-    export SPARK_HOME="/usr/local/Cellar/$(readlink "$(which spark-shell)" | xargs dirname)/../libexec"
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
+# End Nix
 
-# text stuff
-export TT_HOME="$HOME/code/tamingtext-book"
-export MAHOUT_HOME="$HOME/code/foss-clones/mahout"
-export MAHOUT_CONF_DIR="$MAHOUT_HOME/conf"
-export MAHOUT_LOCAL="true"
+export PATH="$HOME/bin:$PATH"
 
+nix? () {
+    nix-env -qa \* -P | fgrep -i "$1"
+}
 
-# NB: this breaks if we have multiple python environments from nix
-#export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-alias irb="irb --nomultiline"
-
-if [[ $(type -t rbenv) ]] ;
-then
-  eval "$(rbenv init -)"
-fi
-export PATH="$HOME/.cabal/bin:$PATH"
-
-export PATH="/opt/bin:$PATH"
-
-# GO crap
-export GOPATH="$HOME/code/go"
-export PATH="$GOPATH/bin:$PATH"
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]
-then
-    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
-
-    nix? () {
-        nix-env -qa \* -P | fgrep -i "$1"
-    }
-
-    nix-show-upgrades () {
-        nix-channel --update && nix-env --upgrade --dry-run
-    }
-
-fi # added by Nix installer
+nix-show-upgrades () {
+    nix-channel --update && nix-env --upgrade --dry-run
+}
 
 # add ls alias after nix so that we get --color on OSX
 alias ls="ls -l --color=always"
-alias irb="irb --nomultiline"
-
-export HISTFILESIZE=10000
 
 export PGUSER="$(whoami)"
 
@@ -251,15 +211,12 @@ enable_npm_bin () {
     fi
 }
 
-# HACK for Cylance/nix/gofmt
-export PATH="/usr/local/go/bin:$PATH:/home/bribera/.cargo/bin"
-
-# CUDA
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
-export CUDA_HOME=/usr/local/cuda
-#export TORCH_LUA_VERSION=LUA52
-export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
-
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# One of these loads nvm
+# [ -s "$NVM_DIR/nvm.sh" ]#  && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+
+# One of these loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"

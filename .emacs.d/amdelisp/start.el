@@ -17,9 +17,9 @@
 ;;; Preload stuff.
 
 (load "added")
-(load "modes")
-(when window-system (load "window"))
-(when (file-exists-p "company.el") (load "company"))
+;; (load "modes")
+;; (when window-system (load "window"))
+;; (when (file-exists-p "company.el") (load "company"))
 (load "prefs")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

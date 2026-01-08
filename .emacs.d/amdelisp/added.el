@@ -9,38 +9,38 @@
     (setq kill-emacs-query-functions
           (cons *my-kill-query* kill-emacs-query-functions)))
 
-(defun string-replace (string from to)
-  (mapconcat 'identity (split-string string from) to))
+;; (defun string-replace (string from to)
+;;   (mapconcat 'identity (split-string string from) to))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; file helpers
 
-(defun parent-directory (path)
-  (let ((parent (file-name-directory path)))
-    (if (null parent) ""
-      (substring parent 0 (1- (length parent))))))
+;; (defun parent-directory (path)
+;;   (let ((parent (file-name-directory path)))
+;;     (if (null parent) ""
+;;       (substring parent 0 (1- (length parent))))))
 
-(defun find-in-path (path name)
-  (cond ((or (= (length path) 0)
-             (string-match "^[a-zA-Z]:$" path))
-         nil)
-        (t
-         (let ((file (concat (file-name-directory path) name)))
-           (if (file-exists-p file)
-               file
-             (find-in-path (parent-directory path) name))))))
+;; (defun find-in-path (path name)
+;;   (cond ((or (= (length path) 0)
+;;              (string-match "^[a-zA-Z]:$" path))
+;;          nil)
+;;         (t
+;;          (let ((file (concat (file-name-directory path) name)))
+;;            (if (file-exists-p file)
+;;                file
+;;              (find-in-path (parent-directory path) name))))))
 
-(defun find-topmost-in-path (path name)
-  "Return the topmost directory containing file NAME in the given
-  PATH"
-  (let ((dir (file-name-directory path)))
-    (cond ((not (file-exists-p (concat dir name)))
-           nil)
-          ((and (> (length path) 0)
-                (not (string-match "^[a-zA-Z]:$" path)))
-           (or (find-topmost-in-path (parent-directory path) name)
-               dir))
-          (t dir))))
+;; (defun find-topmost-in-path (path name)
+;;   "Return the topmost directory containing file NAME in the given
+;;   PATH"
+;;   (let ((dir (file-name-directory path)))
+;;     (cond ((not (file-exists-p (concat dir name)))
+;;            nil)
+;;           ((and (> (length path) 0)
+;;                 (not (string-match "^[a-zA-Z]:$" path)))
+;;            (or (find-topmost-in-path (parent-directory path) name)
+;;                dir))
+;;           (t dir))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Cycle through buffers using Ctrl-tab
@@ -599,279 +599,6 @@ ask first. LIST defaults to all existing live buffers."
         (search-forward "{")
         (mapcar 'java-trace-ctor-param (aref def 2)))
        (t (message "unknown declaration: %S" declaration))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; cpp
-
-;; these are copied from doxygen.el, with one minor change
-
-(defcustom doxymacs-void-types
-  "void"
-  "String with void-kind variable types.  Extend this string if there
-are typedefs of void.  Example: \"void tVOID\"."
-  :type 'string
-  :group 'doxymacs)
-
-(defun doxymacs-extract-args-list (args-string)
-  "Extracts the arguments from the given list (given as a string)."
-  (cond
-   ;; arg list is empty
-   ((string-match "\\`[ \t\n]*\\'" args-string)
-    nil)
-   ;; argument list consists of one word
-   ((string-match "\\`[ \t\n]*\\([a-zA-Z0-9_]+\\)[ \t\n]*\\'" args-string)
-    ;; ... extract this word
-    (let ((arg (substring args-string (match-beginning 1) (match-end 1))))
-      ;; if this arg is a void type return nil
-      (if (string-match (regexp-quote arg) doxymacs-void-types)
-          nil
-        ;; else return arg
-        (list arg))))
-   ;; else split the string and extact var names from args
-   (t
-    (doxymacs-extract-args-list-helper
-     (doxymacs-save-split args-string)))))
-
-
-(defun doxymacs-save-split (args-string)
-  "Splits a declaration list as string and returns list of single
-declarations."
-  (let ((comma-pos (string-match "," args-string))
-        (paren-pos (string-match "(" args-string)))
-    (cond
-     ;; no comma in string found
-     ((null comma-pos)     (list args-string))
-     ;; comma but no parenthethes: split-string is save
-     ((null paren-pos)     (split-string args-string ","))
-     ;; comma first then parenthesis
-     ((< comma-pos paren-pos)
-      (cons (substring args-string 0 comma-pos)
-            (doxymacs-save-split (substring args-string (1+ comma-pos)))))
-     ;; parenthesis first then comma. there must exist a closing parenthesis
-     (t
-      ;; cut off the (...) part
-      (save-excursion
-        ;; create temporary buffer
-        (set-buffer (get-buffer-create "*doxymacs-scratch*"))
-        (erase-buffer)
-        (insert args-string)
-        (goto-char (point-min))
-        (search-forward "(")
-        (prog1
-            (let ((depth 1)
-                  (exit)
-                  (comma-found))
-              (while (not exit)
-                ;; step through buffer
-                (forward-char 1)
-                (cond
-                 ;; end of buffer: exit
-                 ((= (point) (point-max)) (setq exit t))
-                 ;; decrease depth counter
-                 ((looking-at ")")        (setq depth (1- depth)))
-                 ;; increase depth counter
-                 ((looking-at "(")        (setq depth (1+ depth)))
-                 ;; comma at depth 0, thats it!
-                 ((and (looking-at ",") (= 0 depth))
-                  (setq exit t)
-                  (setq comma-found t))))
-              (if (not comma-found)
-                  ;; whole string is one arg
-                  (list (buffer-substring 1 (point)))
-                ;; else split at comma ...
-                (cons (buffer-substring 1 (point))
-                      ;; and split rest of declaration list
-                      (doxymacs-save-split
-                       (buffer-substring (1+ (point)) (point-max))))))
-          (kill-buffer (current-buffer))))))))
-
-
-;; This regexp fails if the opt. parentheses
-;; contain another level of parentheses.  E.g. for:
-;; int f(int (*g)(int (*h)()))
-(defun doxymacs-extract-args-list-helper (args-list)
-  "Recursively get names of arguments."
-  (if args-list
-      (if (string-match
-           (concat
-            "\\("
-            "([ \t\n]*\\*[ \t\n]*\\([a-zA-Z0-9_]+\\)[ \t\n]*)" ; (*varname)
-            "\\|" ;; or
-
-            ;; amd - include type
-            "\\([a-zA-Z0-9_]+\\)[ \t\n]*[*&]?[ \t\n]*\\([a-zA-Z0-9_]+\\)" ; type [*%] name
-            ;;            "\\*?[ \t\n]*\\([a-zA-Z0-9_]+\\)"            ; opt. *, varname
-
-            "\\)"
-            "[ \t\n]*"                  ; opt. spaces
-            "\\(\\[[ \t\n]*[a-zA-Z0-9_]*[ \t\n]*\\]\\|" ; opt. array bounds
-            "([^()]*)\\)?"              ; or opt. func args
-            "[ \t\n]*"                  ; opt. spaces
-            "\\(=[ \t\n]*[^ \t\n]+[ \t\n]*\\)?" ; optional assignment
-            "[ \t\n]*\\'"               ; end
-            ) (car args-list))
-          (cons
-           (cond
-            ;; var name in: (*name)
-            ((match-beginning 2)
-             (substring (car args-list) (match-beginning 2) (match-end 2)))
-            ;; var name in: *name
-
-            ;; amd - build list with type
-            ((match-beginning 3)
-             (cons
-              (substring (car args-list) (match-beginning 3) (match-end 3))
-              (substring (car args-list) (match-beginning 4) (match-end 4))))
-
-            ;; no match: return complete declaration
-            (t
-             (car args-list)))
-           (doxymacs-extract-args-list-helper (cdr args-list)))
-        ;; else there is no match
-        nil)))
-
-(defun doxymacs-core-string (s)
-  "Returns the argument string with leading and trailing blank
-and new-line characters cut off."
-  (string-match "\\`[ \t\n]*\\(.*?\\)[ \t\n]*\\'" s)
-  (if (match-beginning 1)
-      (substring s (match-beginning 1) (match-end 1))
-    s))
-
-(defun doxymacs-find-next-func ()
-  "Returns a list describing next function declaration, or nil if not found."
-  (interactive)
-  (save-excursion
-    (if (re-search-forward
-         (concat
-          ;; return type
-          "\\(\\(const[ \t\n]+\\)?[a-zA-Z0-9_]+[ \t\n*&]+\\)?"
-
-          ;; name
-          "\\(\\([a-zA-Z0-9_~:<,>*&]\\|\\([ \t\n]+::[ \t\n]+\\)\\)+"
-          "\\(o?perator[ \t\n]*.[^(]*\\)?\\)[ \t\n]*("
-          ) nil t)
-
-        (let* ((func (buffer-substring (match-beginning 3) (match-end 3)))
-               (args (buffer-substring (point) (progn
-                                                 (backward-char 1)
-                                                 (forward-list)
-                                                 (backward-char 1)
-                                                 (point))))
-               (ret (cond
-                     ;; Return type specified
-                     ((match-beginning 1)
-                      (buffer-substring (match-beginning 1) (match-end 1)))
-                     ;;Constructor/destructor
-                     ((string-match
-                       "^\\([a-zA-Z0-9_<,>:*&]+\\)[ \t\n]*::[ \t\n]*~?\\1$"
-                       func) "void")
-                     ;;Constructor in class decl.
-                     ((save-match-data
-                        (re-search-backward
-                         (concat
-                          "class[ \t\n]+" (regexp-quote func) "[ \t\n]*{")
-                         nil t))
-                      "void")
-                     ;;Destructor in class decl.
-                     ((save-match-data
-                        (and (string-match "^~\\([a-zA-Z0-9_]+\\)$" func)
-                             (save-match-data
-                               (re-search-backward
-                                (concat
-                                 "class[ \t\n]+" (regexp-quote
-                                                  (match-string 1 func))
-                                 "[ \t\n]*{") nil t))))
-                      "void")
-                     ;;Default
-                     (t "int"))))
-          (list (cons 'func func)
-                (cons 'args (doxymacs-extract-args-list args))
-                (cons 'return (doxymacs-core-string ret))))
-      nil)))
-
-(defvar cpp-trace-formats
-  '(("int" "%d" "%s")
-    ("char" "%s" "%s")
-    ("float" "%f" "%s")
-    ("bool" "%s" "%s ? \"true\" : \"false\"")
-    ("size_t" "%d" "%s")))
-
-(defun cpp-trace-param-formatf (param)
-  (let* ((type (car param))
-         (name (cdr param))
-         (fmt (assoc type cpp-trace-formats)))
-    (insert (concat (if fmt (nth 1 fmt) "%p") ", "))))
-
-(defun cpp-trace-param-name (param)
-  (let* ((type (car param))
-         (name (cdr param))
-         (fmt (assoc type cpp-trace-formats)))
-    (insert (format (concat ", " (if fmt (nth 2 fmt) "%s")) name))))
-
-(defun cpp-trace-method ()
-  "Insert a trace println for a method."
-  (interactive)
-  (beginning-of-line)
-  (let* ((method (doxymacs-find-next-func))
-         (func (cdr (assoc 'func method)))
-         (args (cdr (assoc 'args method))))
-    (search-forward "{")
-    (newline-and-indent)
-    (insert (format "fprintf(stderr, \"%s(" func))
-    (mapcar 'cpp-trace-param-formatf args)
-    (when (> (length args) 0)
-      (delete-char -2))
-    (insert ")\\n\"")
-    (mapcar 'cpp-trace-param-name args)
-    (insert ");")))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; clever indent
-
-(eval-when-compile (require 'cc-mode))
-(defun backward-up-list-indent ()
-  (interactive) (save-excursion (backward-up-list) (c-indent-exp)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; glimpse
-
-(defun glimpse (words)
-  (interactive "sSearch glimpse for: ")
-  (let ((null-device nil))
-    (grep (format "glimpse -iny \"%s\"" words))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; rebuild autoloads
-
-(eval-when-compile (require 'autoload))
-(defun rebuild-autoloads-dir (dir)
-  (dolist (file (directory-files dir))
-    (let ((path (format "%s/%s" dir file))
-          (excludes '("." "..")))
-      (cond
-                                        ; ignore some files
-       ((or (member file excludes)
-            (string-match "loaddefs.el$" file)))
-       ((file-directory-p path) (rebuild-autoloads-dir path))
-       ((string-match ".el$" file)
-        (message "generate-file-autoloads(%s)..." file)
-        (generate-file-autoloads path))))))
-
-(defun rebuild-autoloads ()
-  (interactive)
-  (require 'autoload)
-  (let* ((source-directory AMDELISP)
-         (autoloads-file
-          (expand-file-name generated-autoload-file
-                            (expand-file-name "lisp"
-                                              source-directory))))
-    (save-excursion
-      (message "rebuild-autoload : %s" autoloads-file)
-      (set-buffer (find-file-noselect autoloads-file))
-      (rebuild-autoloads-dir source-directory)
-      (message "rebuild-autoload : %s - Done." autoloads-file))))
 
 (provide 'added)
 

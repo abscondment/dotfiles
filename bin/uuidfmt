@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+"""
+usage: uuidfmt <UUIDs...>
+
+Prints a formatted (lower case, with dashes) version
+of given UUIDs, or ERROR if one is invalid.
+"""
+
+import sys
+import uuid
+
+for candidate in sys.argv[1:]:
+    try:
+        print(str(uuid.UUID(candidate)))
+    except ValueError:
+        print(f'ERROR: {candidate} is invalid')
