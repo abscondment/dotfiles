@@ -179,7 +179,7 @@ shuf() { awk 'BEGIN {srand(); OFMT="%.17f"} {print rand(), $0}' "$@" |
 # add private bashrcs
 while read -r f ; do source "$f" ;  done < <(find "$HOME/.secrets/" -iname '*.bashrc')
 
-export PATH="$PATH:$HOME/go/bin:/opt/homebrew/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/go/bin:/opt/homebrew/bin"
 
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
